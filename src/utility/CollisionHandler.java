@@ -62,7 +62,7 @@ public final class CollisionHandler {
 	}
 	
 	/* Checks collisions between two rectangles */
-	
+
 	public static boolean checkRectRectCollision(GObject rect1, GObject rect2) {
 		// place holder 
 		return false;
