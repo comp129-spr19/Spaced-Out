@@ -64,8 +64,25 @@ public final class CollisionHandler {
 	/* Checks collisions between two rectangles */
 
 	public static boolean checkRectRectCollision(GObject rect1, GObject rect2) {
-		// place holder 
-		return false;
+		
+		// get the top left and bottom right points of each rect	
+		Location rectOneTopLeft = new Location(rect1.getX(),rect1.getY());
+		Location rectOneBottomRight = new Location(rect1.getX()+rect1.getWidth(),rect1.getY() + rect1.getHeight());
+		
+		Location rectTwoTopLeft = new Location(rect2.getX(),rect2.getY());
+		Location rectTwoBottomRight = new Location(rect2.getX() +rect2.getWidth(), rect2.getY() + rect2.getWidth());
+		
+		
+		// check to see if there is no overlap between these points
+		if (rectOneTopLeft.getX() < rectTwoBottomRight.getX() &&
+				rectOneBottomRight.getX() > rectTwoTopLeft.getX() &&
+				 rectOneTopLeft.getY() < rectTwoBottomRight.getY() &&
+				 rectOneBottomRight.getY() < rectTwoTopLeft.getY()) {
+			return false;
+		} else {
+			return true;
+		}
+			
 	}
 	
 	/* helper method for checkCollisionEdge */
