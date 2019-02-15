@@ -70,17 +70,17 @@ public final class CollisionHandler {
 		Location rectOneBottomRight = new Location(rect1.getX()+rect1.getWidth(),rect1.getY() + rect1.getHeight());
 		
 		Location rectTwoTopLeft = new Location(rect2.getX(),rect2.getY());
-		Location rectTwoBottomRight = new Location(rect2.getX() +rect2.getWidth(), rect2.getY() + rect2.getWidth());
+		Location rectTwoBottomRight = new Location(rect2.getX() +rect2.getWidth(), rect2.getY() + rect2.getHeight());
 		
 		
 		// check to see if there is no overlap between these points
 		if (rectOneTopLeft.getX() < rectTwoBottomRight.getX() &&
 				rectOneBottomRight.getX() > rectTwoTopLeft.getX() &&
 				 rectOneTopLeft.getY() < rectTwoBottomRight.getY() &&
-				 rectOneBottomRight.getY() < rectTwoTopLeft.getY()) {
-			return false;
-		} else {
+				 rectOneBottomRight.getY() > rectTwoTopLeft.getY()) {
 			return true;
+		} else {
+			return false;
 		}
 			
 	}

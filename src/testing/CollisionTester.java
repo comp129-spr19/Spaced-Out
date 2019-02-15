@@ -16,7 +16,7 @@ GRect character;
 //program.addKeyListeners();
 	public void run() {
 		GRect square = new GRect(40,40,10,10);
-		GOval cir = new GOval(80,80,10,10);
+		GOval cir = new GOval(80,80,11,80);
 		
 		character = new GRect(100,100,10,10);
 		character.setFilled(true);
@@ -35,7 +35,7 @@ GRect character;
 			if (CollisionHandler.checkRectRectCollision(character, square)) {
 				remove(square);
 			}
-		}
+		} 
 	}
 	@Override 
 	public void keyPressed(KeyEvent e) {
