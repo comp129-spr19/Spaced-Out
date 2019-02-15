@@ -14,7 +14,6 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	public void run() {
-		System.out.println("Hello, world!");
 		gamePane = new GamePane(this);
 		menu = new MenuPane(this);
 		switchToMenu();
@@ -34,5 +33,9 @@ public class MainApplication extends GraphicsApplication {
 	private void playRandomSound() {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+	}
+	
+	public static int centerHeight(int objectHeight) {
+		return (WINDOW_HEIGHT / 2) - (objectHeight / 2);
 	}
 }
