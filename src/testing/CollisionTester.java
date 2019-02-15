@@ -40,7 +40,7 @@ GRect character;
 	@Override 
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
-			character.move(-1 * VELOCITY, 0);
+			character.move(-1 * VELOCITY, 0); 
 		}
 		if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			character.move(VELOCITY, 0);
