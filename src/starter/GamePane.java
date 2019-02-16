@@ -60,6 +60,8 @@ public class GamePane extends GraphicsPane implements ActionListener{
 		
 		//THIS NEEDS WORK STEVEN!!!
 		
+		// Check for collisions here
+		
 	}
 	/**********************
 	 * KEY AND MOUSE LISTENER METHODS
