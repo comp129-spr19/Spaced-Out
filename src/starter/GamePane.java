@@ -23,7 +23,7 @@ public class GamePane extends GraphicsPane implements ActionListener{
 	public static final int PORTAL_START_W = 100;
 	public static final int PAYLOAD_HEIGHT = 50;
 	public static final int PAYLOAD_WIDTH = 60;
-	public static final int PAYLOAD_START_W = 700;	
+	public static final int PAYLOAD_START_W = 600;	
 	public static final int VELOCITY = 2;
 	public static final int TIMER = 1000;
 	
