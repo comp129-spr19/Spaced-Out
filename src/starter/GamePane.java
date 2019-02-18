@@ -35,6 +35,8 @@ public class GamePane extends GraphicsPane implements ActionListener{
 	private boolean payloadGotten = false;
 	private Timer movement;
 
+	
+	
 	/*************
 	 * CONSTRUCTOR
 	 * @param app

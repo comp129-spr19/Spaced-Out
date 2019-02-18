@@ -12,10 +12,12 @@ public class MainApplication extends GraphicsApplication {
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
+
 	private GamePane gamePane;
 	private MenuPane menu;
 	private int count;
-
+	
+	
 	/***************
 	 * SCREEN SET UP
 	 ***************/
@@ -27,6 +29,8 @@ public class MainApplication extends GraphicsApplication {
 	 * CONSTRUCTOR
 	 *************/
 	public void run() {
+		
+		
 		gamePane = new GamePane(this);
 		
 		menu = new MenuPane(this);

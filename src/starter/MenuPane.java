@@ -26,11 +26,14 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 	public static final int PORTAL_START_W = 700;
 	public static final int VELOCITY = 2;
 	public static final int TIMER = 100;
+	public static final int DELAY_BEFORE_DETECTING_COLLISIONS = 50;
 	private GOval portal;
 	private GOval player;
 	private GRect payload;
 	private Timer movement;
 	private boolean payloadGotten;
+	
+	int numTimeIterations;
 	/**********************
 	 * CONSTRUCTOR
 	 * @param app
@@ -43,6 +46,7 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 		portal = new GOval(PORTAL_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
 		payload = null;
 		movement = new Timer(TIMER, this);
+		numTimeIterations = 0;
 		payloadGotten = true;
 		//movement.start();
 	}
@@ -79,8 +83,12 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		//begin checking collisions after x passes of the timer
+		if (numTimeIterations < DELAY_BEFORE_DETECTING_COLLISIONS) {
+			numTimeIterations++;
+		} else {
 		CollisionChecker.collisions(this, player, portal, payload,payloadGotten);
+		}
 	}
 	public void startTimer() {
 		movement.start();
@@ -103,6 +111,9 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 	public void switchScreen() {
 		// stop the timer for this level
 		movement.stop();
+		
+		// set the number of iterations, so we can again experience this delay.
+		numTimeIterations = 0;
 		// switch screens
 		program.switchToSome();
 	}
