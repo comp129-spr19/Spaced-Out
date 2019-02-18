@@ -1,64 +1,68 @@
 package starter;
-import java.awt.Color;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-
 import javax.swing.Timer;
+import acm.graphics.*;
+import utility.CollisionHandler;
+import acm.program.GraphicsProgram;
+import game.CollisionChecker;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import acm.graphics.*;
-import game.CollisionChecker;
+import java.awt.event.KeyEvent;
 
 /*********************************************
  * @authors Danilo, Bette, David, Ivan, Steven
  *********************************************/
 
-public class MenuPane extends GraphicsPane implements ActionListener {
-	/**********************
+public class LevelTwo extends GraphicsPane implements ActionListener{
+	/******************
 	 * GLOBAL VARIABLES
-	 **********************/
+	 ******************/
 	private MainApplication program; //use this 'program.something' for all program calls
 	public static final int PLAYER_SIZE = 50;
-	public static final int PLAYER_START_W = 20;
+	public static final int PLAYER_START_W = 120;
 	public static final int PORTAL_HEIGHT = 150;
 	public static final int PORTAL_WIDTH = 20;
-	public static final int PORTAL_START_W = 700;
+	public static final int PORTAL_START_W = 100;
+	public static final int PAYLOAD_HEIGHT = 50;
+	public static final int PAYLOAD_WIDTH = 60;
+	public static final int PAYLOAD_START_W = 600;	
 	public static final int VELOCITY = 2;
 	public static final int TIMER = 100;
-	public static final int DELAY_BEFORE_DETECTING_COLLISIONS = 50;
 	private GOval portal;
 	private GOval player;
 	private GRect payload;
+	private boolean payloadGotten = false;
 	private Timer movement;
-	private boolean payloadGotten;
+
 	
-	int numTimeIterations;
-	/**********************
+	
+	/*************
 	 * CONSTRUCTOR
 	 * @param app
-	 **********************/	
-	public MenuPane(MainApplication app) {
-		super();
-		program = app;
+	 **************/	
+	public LevelTwo(MainApplication app) {
+		//program set up
+		this.program = app;
+		//Graphics set up
 		player = new GOval(PLAYER_START_W, MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE, PLAYER_SIZE);
 		player.setFilled(true);
 		portal = new GOval(PORTAL_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
-		payload = null;
-		movement = new Timer(TIMER, this);
+		payload = new GRect(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT), PAYLOAD_WIDTH, PAYLOAD_HEIGHT);
 		
-		// number of iterations have to pass before collision detection.
-		// Set at max value currently, since we want to immediately begin collision detection
-		//This should be changed with a much more clever solution second sprint. 
-		numTimeIterations = DELAY_BEFORE_DETECTING_COLLISIONS;
-		payloadGotten = true;
+		//timer initialized and started
+		movement = new Timer(TIMER, this);
 		//movement.start();
+		
+		//listeners set up
+		program.addKeyListeners();
+		program.addMouseListeners();	
 	}
-	
-	/**********************
+
+	/********************************
 	 * KEY AND MOUSE LISTENER METHODS
 	 * @param e
-	 **********************/
+	 ***************(****************/
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Key Press Left or 'A'
@@ -77,52 +81,57 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 		if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
 			player.move(0, VELOCITY);
 		}
-	}
+	}	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == portal) {
-			program.switchToSome();
+		if (obj == portal && payloadGotten) {
+			this.switchScreen();
+		}
+		else if (obj == payload) {
+			removePayload();
+			
 		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//begin checking collisions after x passes of the timer
-		if (numTimeIterations < DELAY_BEFORE_DETECTING_COLLISIONS) {
-			numTimeIterations++;
-		} else {
-		CollisionChecker.collisions(this, player, portal, payload,payloadGotten);
-		}
-	}
+		CollisionChecker.collisions(this, player, portal, payload, payloadGotten);
+		System.out.println("RUNNING");
+	} 
+	
+	/* Starts the timer to check collisions */
 	public void startTimer() {
 		movement.start();
 	}
 	
-	/**********************
+	
+	/*****************************
 	 * WINDOW SWITCHING AND HIDING
-	 **********************/
-	@Override
-	public void showContents() {
-		program.add(portal);
-		program.add(player);
-	}
+	 *****************************/
 	@Override
 	public void hideContents() {
 		program.removeAll();
 	}
+	@Override
+	public void showContents() {
+		program.add(portal);
+		program.add(player);
+		if(!payloadGotten) {
+			program.add(payload);
+		}
+	}
 	
-	/* switches to the next level */
+	/* Switches to the next screen */
 	public void switchScreen() {
 		// stop the timer for this level
 		movement.stop();
-		
-		// set the number of iterations, so we can again experience this delay.
-		numTimeIterations = 0;
 		// switch screens
-		program.switchToSome();
+		program.switchToMenu();
 	}
 	
+	/* removes the payload */
 	public void removePayload() {
 		program.remove(payload);
+		payloadGotten = true;
 	}
 }

@@ -13,11 +13,10 @@ public class MainApplication extends GraphicsApplication {
 	public static final String MUSIC_FOLDER = "sounds";
 	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
 
-	private GamePane gamePane;
-	private MenuPane menu;
+	private LevelTwo levelTwo;
+	private LevelOne levelOne;
 	private int count;
-	
-	
+
 	/***************
 	 * SCREEN SET UP
 	 ***************/
@@ -29,12 +28,11 @@ public class MainApplication extends GraphicsApplication {
 	 * CONSTRUCTOR
 	 *************/
 	public void run() {
-		
-		
-		gamePane = new GamePane(this);
-		
-		menu = new MenuPane(this);
-		
+
+		levelOne = new LevelOne(this);
+
+		levelTwo = new LevelTwo(this);
+
 		switchToMenu();
 	}
 
@@ -43,13 +41,13 @@ public class MainApplication extends GraphicsApplication {
 	 *****************************/
 	public void switchToMenu() {
 		count++;
-		menu.startTimer();
-		switchToScreen(menu);
+		levelOne.startTimer();
+		switchToScreen(levelOne);
 	}
 
 	public void switchToSome() {
-		gamePane.startTimer();
-		switchToScreen(gamePane);
+		levelTwo.startTimer();
+		switchToScreen(levelTwo);
 	}
 
 	/****************
