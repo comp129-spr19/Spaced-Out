@@ -3,6 +3,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.Timer;
 import acm.graphics.*;
 import utility.CollisionHandler;
+import acm.program.GraphicsProgram;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -25,7 +27,7 @@ public class GamePane extends GraphicsPane implements ActionListener{
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;	
 	public static final int VELOCITY = 2;
-	public static final int TIMER = 1000;
+	public static final int TIMER = 100;
 	
 	private GOval portal;
 	private GOval player;
@@ -54,19 +56,16 @@ public class GamePane extends GraphicsPane implements ActionListener{
 		program.addKeyListeners();
 		program.addMouseListeners();	
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-		//THIS NEEDS WORK STEVEN!!!
-		
-		// Check for collisions here
-		
-	}
+
 	/**********************
 	 * KEY AND MOUSE LISTENER METHODS
 	 * @param e
 	 **********************/
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	} 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Key Press Left or 'A'
@@ -113,6 +112,7 @@ public class GamePane extends GraphicsPane implements ActionListener{
 			program.add(payload);
 		}
 	}
+
 
 
 }
