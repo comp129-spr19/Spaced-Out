@@ -46,7 +46,11 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 		portal = new GOval(PORTAL_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
 		payload = null;
 		movement = new Timer(TIMER, this);
-		numTimeIterations = 0;
+		
+		// number of iterations have to pass before collision detection.
+		// Set at max value currently, since we want to immediately begin collision detection
+		//This should be changed with a much more clever solution second sprint. 
+		numTimeIterations = DELAY_BEFORE_DETECTING_COLLISIONS;
 		payloadGotten = true;
 		//movement.start();
 	}
