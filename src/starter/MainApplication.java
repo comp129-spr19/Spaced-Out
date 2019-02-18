@@ -22,7 +22,7 @@ public class MainApplication extends GraphicsApplication {
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
-	
+
 	/*************
 	 * CONSTRUCTOR
 	 *************/
@@ -31,17 +31,16 @@ public class MainApplication extends GraphicsApplication {
 		menu = new MenuPane(this);
 		switchToMenu();
 	}
-	
+
 	/*****************************
 	 * WINDOW SWITCHING AND HIDING
 	 *****************************/
 	public void switchToMenu() {
-		playRandomSound();
 		count++;
 		switchToScreen(menu);
 	}
+
 	public void switchToSome() {
-		playRandomSound();
 		switchToScreen(gamePane);
 	}
 
@@ -52,6 +51,7 @@ public class MainApplication extends GraphicsApplication {
 		AudioPlayer audio = AudioPlayer.getInstance();
 		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
 	}
+
 	public static int centerHeight(int objectHeight) {
 		return (WINDOW_HEIGHT / 2) - (objectHeight / 2);
 	}
