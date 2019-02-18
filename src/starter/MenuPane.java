@@ -1,26 +1,33 @@
 package starter;
-
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import acm.graphics.*;
 
+/*********************************************
+ * @authors Danilo, Bette, David, Ivan, Steven
+ *********************************************/
+
 public class MenuPane extends GraphicsPane implements ActionListener {
-	private MainApplication program; // you will use program to get access to
-										// all of the GraphicsProgram calls
+	/**********************
+	 * GLOBAL VARIABLES
+	 **********************/
+	private MainApplication program; //use this 'program.something' for all program calls
 	public static final int PLAYER_SIZE = 50;
 	public static final int PLAYER_START_W = 20;
 	public static final int PORTAL_HEIGHT = 150;
 	public static final int PORTAL_WIDTH = 20;
 	public static final int PORTAL_START_W = 700;
 	public static final int VELOCITY = 2;
-	
 	private GOval portal;
 	private GOval player;
 
+	/**********************
+	 * CONSTRUCTOR
+	 * @param app
+	 **********************/	
 	public MenuPane(MainApplication app) {
 		super();
 		program = app;
@@ -28,19 +35,11 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 		player.setFilled(true);
 		portal = new GOval(PORTAL_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
 	}
-
-	@Override
-	public void showContents() {
-		program.add(portal);
-		program.add(player);
-	}
-
-	@Override
-	public void hideContents() {
-		program.remove(portal);
-		program.remove(player);
-	}
 	
+	/**********************
+	 * KEY AND MOUSE LISTENER METHODS
+	 * @param e
+	 **********************/
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Key Press Left or 'A'
@@ -60,7 +59,6 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 			player.move(0, VELOCITY);
 		}
 	}
-
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -68,10 +66,22 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 			program.switchToSome();
 		}
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/**********************
+	 * WINDOW SWITCHING AND HIDING
+	 **********************/
+	@Override
+	public void showContents() {
+		program.add(portal);
+		program.add(player);
+	}
+	@Override
+	public void hideContents() {
+		program.removeAll();
 	}
 }

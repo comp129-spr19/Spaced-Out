@@ -4,20 +4,19 @@ import javax.swing.Timer;
 import acm.graphics.*;
 import utility.CollisionHandler;
 import acm.program.GraphicsProgram;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
-/**********************
+/*********************************************
  * @authors Danilo, Bette, David, Ivan, Steven
- **********************/
+ *********************************************/
+
 public class GamePane extends GraphicsPane implements ActionListener{
-	/**********************
+	/******************
 	 * GLOBAL VARIABLES
-	 **********************/
-	private MainApplication program; // you will use program to get access to
-										// all of the GraphicsProgram calls
+	 ******************/
+	private MainApplication program; //use this 'program.something' for all program calls
 	public static final int PLAYER_SIZE = 50;
 	public static final int PLAYER_START_W = 120;
 	public static final int PORTAL_HEIGHT = 150;
@@ -28,17 +27,16 @@ public class GamePane extends GraphicsPane implements ActionListener{
 	public static final int PAYLOAD_START_W = 600;	
 	public static final int VELOCITY = 2;
 	public static final int TIMER = 100;
-	
 	private GOval portal;
 	private GOval player;
 	private GRect payload;
 	private boolean payloadGotten = false;
 	private Timer movement;
 
-	/**********************
+	/*************
 	 * CONSTRUCTOR
 	 * @param app
-	 **********************/	
+	 **************/	
 	public GamePane(MainApplication app) {
 		//program set up
 		this.program = app;
@@ -57,15 +55,10 @@ public class GamePane extends GraphicsPane implements ActionListener{
 		program.addMouseListeners();	
 	}
 
-	/**********************
+	/********************************
 	 * KEY AND MOUSE LISTENER METHODS
 	 * @param e
-	 **********************/
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	} 
+	 ***************(****************/
 	@Override
 	public void keyPressed(KeyEvent e) {
 		//Key Press Left or 'A'
@@ -84,8 +77,7 @@ public class GamePane extends GraphicsPane implements ActionListener{
 		if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
 			player.move(0, VELOCITY);
 		}
-	}
-			
+	}	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
@@ -97,9 +89,15 @@ public class GamePane extends GraphicsPane implements ActionListener{
 			payloadGotten = true;
 		}
 	}
-	/**********************
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	} 
+	
+	/*****************************
 	 * WINDOW SWITCHING AND HIDING
-	 **********************/
+	 *****************************/
 	@Override
 	public void hideContents() {
 		program.removeAll();
@@ -112,7 +110,4 @@ public class GamePane extends GraphicsPane implements ActionListener{
 			program.add(payload);
 		}
 	}
-
-
-
 }
