@@ -62,5 +62,15 @@ public abstract class GraphicsPane implements Interfaceable {
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 	}
+	
+	/* Switches to the next level screen*/
+	public void switchScreen() {
+		/* Every GraphicsPane (or Level) will require switching screen to the next level */
+	}
+	
+	/* Removes a payload which will be found in all levels */
+	public void removePayload() {
+		
+	}
 
 }

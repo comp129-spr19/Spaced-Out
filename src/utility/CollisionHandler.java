@@ -31,7 +31,7 @@ public final class CollisionHandler {
 	}
 	
 	/* Checks if collisions between a Rectangle and Circle has occured*/
-	public static boolean checkRectCircCollison(GObject rect, GObject cir) {
+	public static boolean checkCircRectCollision(GObject cir, GObject rect) {
 		Location circCenter = getCenter(cir);
 		double circRadius = cir.getHeight()/2;
 		

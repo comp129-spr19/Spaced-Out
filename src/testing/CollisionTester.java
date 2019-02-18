@@ -28,7 +28,7 @@ GRect character;
 		while(true) {
 			
 			System.out.println("RUNNING");
-			if (CollisionHandler.checkRectCircCollison(cir,character )) {
+			if (CollisionHandler.checkRectRectCollision(cir,character )) {
 				remove(cir);
 			}
 			

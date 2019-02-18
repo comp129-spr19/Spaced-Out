@@ -4,6 +4,8 @@ import javax.swing.Timer;
 import acm.graphics.*;
 import utility.CollisionHandler;
 import acm.program.GraphicsProgram;
+import game.CollisionChecker;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -48,7 +50,7 @@ public class GamePane extends GraphicsPane implements ActionListener{
 		
 		//timer initialized and started
 		movement = new Timer(TIMER, this);
-		movement.start();
+		//movement.start();
 		
 		//listeners set up
 		program.addKeyListeners();
@@ -82,18 +84,24 @@ public class GamePane extends GraphicsPane implements ActionListener{
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
 		if (obj == portal && payloadGotten) {
-			program.switchToMenu();
+			this.switchScreen();
 		}
 		else if (obj == payload) {
-			program.remove(payload);
-			payloadGotten = true;
+			removePayload();
+			
 		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		CollisionChecker.collisions(this, player, portal, payload, payloadGotten);
+		System.out.println("RUNNING");
 	} 
+	
+	/* Starts the timer to check collisions */
+	public void startTimer() {
+		movement.start();
+	}
+	
 	
 	/*****************************
 	 * WINDOW SWITCHING AND HIDING
@@ -109,5 +117,19 @@ public class GamePane extends GraphicsPane implements ActionListener{
 		if(!payloadGotten) {
 			program.add(payload);
 		}
+	}
+	
+	/* Switches to the next screen */
+	public void switchScreen() {
+		// stop the timer for this level
+		movement.stop();
+		// switch screens
+		program.switchToMenu();
+	}
+	
+	/* removes the payload */
+	public void removePayload() {
+		program.remove(payload);
+		payloadGotten = true;
 	}
 }

@@ -2,9 +2,13 @@ package starter;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+
+import javax.swing.Timer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import acm.graphics.*;
+import game.CollisionChecker;
 
 /*********************************************
  * @authors Danilo, Bette, David, Ivan, Steven
@@ -21,9 +25,12 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 	public static final int PORTAL_WIDTH = 20;
 	public static final int PORTAL_START_W = 700;
 	public static final int VELOCITY = 2;
+	public static final int TIMER = 100;
 	private GOval portal;
 	private GOval player;
-
+	private GRect payload;
+	private Timer movement;
+	private boolean payloadGotten;
 	/**********************
 	 * CONSTRUCTOR
 	 * @param app
@@ -34,6 +41,10 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 		player = new GOval(PLAYER_START_W, MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE, PLAYER_SIZE);
 		player.setFilled(true);
 		portal = new GOval(PORTAL_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
+		payload = null;
+		movement = new Timer(TIMER, this);
+		payloadGotten = true;
+		//movement.start();
 	}
 	
 	/**********************
@@ -69,7 +80,10 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		CollisionChecker.collisions(this, player, portal, payload,payloadGotten);
+	}
+	public void startTimer() {
+		movement.start();
 	}
 	
 	/**********************
@@ -83,5 +97,17 @@ public class MenuPane extends GraphicsPane implements ActionListener {
 	@Override
 	public void hideContents() {
 		program.removeAll();
+	}
+	
+	/* switches to the next level */
+	public void switchScreen() {
+		// stop the timer for this level
+		movement.stop();
+		// switch screens
+		program.switchToSome();
+	}
+	
+	public void removePayload() {
+		program.remove(payload);
 	}
 }

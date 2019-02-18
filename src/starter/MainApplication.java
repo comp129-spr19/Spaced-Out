@@ -28,7 +28,9 @@ public class MainApplication extends GraphicsApplication {
 	 *************/
 	public void run() {
 		gamePane = new GamePane(this);
+		
 		menu = new MenuPane(this);
+		
 		switchToMenu();
 	}
 
@@ -37,10 +39,12 @@ public class MainApplication extends GraphicsApplication {
 	 *****************************/
 	public void switchToMenu() {
 		count++;
+		menu.startTimer();
 		switchToScreen(menu);
 	}
 
 	public void switchToSome() {
+		gamePane.startTimer();
 		switchToScreen(gamePane);
 	}
 
