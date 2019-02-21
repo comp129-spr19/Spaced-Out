@@ -7,31 +7,31 @@ public class Payload {
 	public static final int PAYLOAD_HEIGHT = 50;
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;
-	private GRect payload;
+	private GRect image;
 
 	// Default Constructor
 	public Payload() {
-		this.payload = new GRect(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT), PAYLOAD_WIDTH,
+		this.image = new GRect(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2, PAYLOAD_WIDTH,
 				PAYLOAD_HEIGHT);
 	}
 
 	// Overloaded Constructor
 	public Payload(int startX, int startY, int payloadWidth, int payloadHeight) {
-		this.payload = new GRect(startX, startY, payloadWidth, payloadHeight);
+		this.image = new GRect(startX, startY, payloadWidth, payloadHeight);
 	}
 
 	// Moves GImage
-	void move(int x, int y) {
-		this.payload.move(x, y);
+	public void move(int x, int y) {
+		this.image.move(x, y);
 	}
 
 	// Sets payload image
-	void setPayload(GRect payload) {
-		this.payload = payload;
+	public void setImage(GRect payload) {
+		this.image = payload;
 	}
 
 	// Returns payload image
-	GRect getPayload() {
-		return this.payload;
+	public GRect getImage() {
+		return this.image;
 	}
 }

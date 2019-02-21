@@ -2,6 +2,7 @@ package game;
 
 import acm.graphics.*;
 import starter.GraphicsPane;
+import starter.Level;
 import starter.MainApplication;
 import utility.CollisionHandler;
 
@@ -21,16 +22,29 @@ public final class CollisionChecker {
 	}
 	
 	// this function will check collisions between player, portals, and payloads
-	public static void collisions(GraphicsPane level, GObject player,GOval portal, GRect payload, boolean payloadGotten ) {
+	public static void collisions(Level level, Player player,Portal portalLeft,Portal portalRight, Payload payload, boolean payloadGotten ) {
+		Level next = level.getNext();
+		
 		
 		// if the payload has been retrieved and the player and payload have collided, switch screens
-		if (payloadGotten && playerPortalCollision(player,portal)) {
-			level.switchScreen();
+		if (portalLeft != null ) {
+		if (payloadGotten && playerPortalCollision(player.getImage(),portalLeft.getImage())) {
+			level.switchScreen(false);
+		}
 		}
 		
+		if (portalRight != null) {
+		
+		if (next != null && !(next.payloadRetrieved()) &&  playerPortalCollision(player.getImage(),portalRight.getImage())) {
+			level.switchScreen(true);
+		}
+		}
+		
+		if (next == null ||next.payloadRetrieved()) {
 		// if the payload and player collide, remove the payload
-		if (playerPayloadCollision(player,payload)) {
+		if (playerPayloadCollision(player.getImage(),payload.getImage())) {
 			level.removePayload();
+		}
 		}
 	}
 	

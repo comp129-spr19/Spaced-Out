@@ -9,50 +9,77 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import acm.graphics.*;
 import game.CollisionChecker;
+import game.Payload;
+import game.Player;
+import game.Portal;
 
 /*********************************************
  * @authors Danilo, Bette, David, Ivan, Steven
  *********************************************/
 
-public class LevelOne extends GraphicsPane implements ActionListener {
+public class Level extends GraphicsPane implements ActionListener {
 	/**********************
-	 * GLOBAL VARIABLES
+	 * CONSTANTS
 	 **********************/
 	private MainApplication program; //use this 'program.something' for all program calls
-	public static final int PLAYER_SIZE = 50;
-	public static final int PLAYER_START_W = 20;
-	public static final int PORTAL_HEIGHT = 150;
-	public static final int PORTAL_WIDTH = 20;
-	public static final int PORTAL_START_W = 700;
-	public static final int VELOCITY = 2;
-	public static final int TIMER = 100;
-	public static final int DELAY_BEFORE_DETECTING_COLLISIONS = 50;
-	private GOval portal;
-	private GOval player;
-	private GRect payload;
-	private Timer movement;
-	private boolean payloadGotten;
 	
-	int numTimeIterations;
+	public static final int VELOCITY = 7;
+	public static final int TIMER = 100;
+
+
+	
+	
 	/**********************
 	 * CONSTRUCTOR
 	 * @param app
 	 **********************/	
-	public LevelOne(MainApplication app) {
+	
+	
+	
+	// Variables
+	
+	
+	// pointers to the level before and after this level.
+	Level prev,next; 
+	
+	Portal portalLeft, portalRight;
+	Player player; 
+	Payload payload;
+	private Timer timer;
+	private boolean payloadRetrieved;
+	
+	int numTimeIterations;
+	
+	public Level(MainApplication app, String levelType) {
 		super();
 		program = app;
-		player = new GOval(PLAYER_START_W, MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE, PLAYER_SIZE);
-		player.setFilled(true);
-		portal = new GOval(PORTAL_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
-		payload = null;
-		movement = new Timer(TIMER, this);
-		
-		// number of iterations have to pass before collision detection.
-		// Set at max value currently, since we want to immediately begin collision detection
-		//This should be changed with a much more clever solution second sprint. 
-		numTimeIterations = DELAY_BEFORE_DETECTING_COLLISIONS;
-		payloadGotten = true;
+		player = new Player();
+		payload = new Payload();
+		prev = null;
+		next = null;
+		if (levelType.equals("first")) {
+			portalRight = new Portal("right"); 
+			portalLeft = null; 
+		} else if (levelType.equals("last")) {
+			portalRight = null; 
+			portalLeft = new Portal("left"); 
+		} else {
+			portalRight = new Portal("right"); // create rightmost portal
+			portalLeft = new Portal("left"); // create leftmost portal
+		}
+	
+		timer = new Timer(TIMER, this);
+
+		payloadRetrieved = false;
 		//movement.start();
+	}
+	
+	public void setPrev(Level previous) {
+		this.prev = previous;
+	}
+	
+	public void setNext(Level next) {
+		this.next = next;
 	}
 	
 	/**********************
@@ -81,21 +108,19 @@ public class LevelOne extends GraphicsPane implements ActionListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == portal) {
-			program.switchToSome();
+		if (obj == portalRight.getImage()) {
+			program.switchLevel(true);
 		}
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		//begin checking collisions after x passes of the timer
-		if (numTimeIterations < DELAY_BEFORE_DETECTING_COLLISIONS) {
-			numTimeIterations++;
-		} else {
-		CollisionChecker.collisions(this, player, portal, payload,payloadGotten);
-		}
+		CollisionChecker.collisions(this, player,portalLeft, portalRight, payload,payloadRetrieved);
+		
 	}
+	
+	
 	public void startTimer() {
-		movement.start();
+		timer.start();
 	}
 	
 	/**********************
@@ -103,8 +128,18 @@ public class LevelOne extends GraphicsPane implements ActionListener {
 	 **********************/
 	@Override
 	public void showContents() {
-		program.add(portal);
-		program.add(player);
+		
+		program.add(player.getImage());
+		
+		if (portalLeft != null) {
+			program.add(portalLeft.getImage());
+		}
+		if (portalRight != null) {
+		program.add(portalRight.getImage());
+		}
+		if (!(payloadRetrieved)) {
+			program.add(payload.getImage());
+		}
 	}
 	@Override
 	public void hideContents() {
@@ -112,17 +147,26 @@ public class LevelOne extends GraphicsPane implements ActionListener {
 	}
 	
 	/* switches to the next level */
-	public void switchScreen() {
+	public void switchScreen(boolean movingRight) {
 		// stop the timer for this level
-		movement.stop();
+		timer.stop();
 		
 		// set the number of iterations, so we can again experience this delay.
 		numTimeIterations = 0;
 		// switch screens
-		program.switchToSome();
+		program.switchLevel(movingRight);
 	}
 	
 	public void removePayload() {
-		program.remove(payload);
+		program.remove(payload.getImage());
+		payloadRetrieved = true;
+	}
+	
+	public Level getNext() {
+		return next;
+	}
+	
+	public boolean payloadRetrieved() {
+		return payloadRetrieved;
 	}
 }
