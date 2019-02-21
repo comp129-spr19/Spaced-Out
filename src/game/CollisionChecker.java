@@ -28,23 +28,26 @@ public final class CollisionChecker {
 		
 		// if the payload has been retrieved and the player and payload have collided, switch screens
 		if (portalLeft != null ) {
-		if (payloadGotten && playerPortalCollision(player.getImage(),portalLeft.getImage())) {
-			level.switchScreen(false);
-		}
+			if (payloadGotten && playerPortalCollision(player.getImage(),portalLeft.getImage())) {
+				level.switchScreen(false);
+			}
 		}
 		
+		// check if a right portal exists
 		if (portalRight != null) {
-		
-		if (next != null && !(next.payloadRetrieved()) &&  playerPortalCollision(player.getImage(),portalRight.getImage())) {
-			level.switchScreen(true);
+			// if the player hasn't retrieved the payload from the level over, and a level 
+			// exists to the right. Check for the right portal collision
+			if (next != null && !(next.payloadRetrieved()) &&  playerPortalCollision(player.getImage(),portalRight.getImage())) {
+				level.switchScreen(true);
+			}
 		}
-		}
 		
+		// check if the player has retrieved the next level's payload or if the player is at the end level
 		if (next == null ||next.payloadRetrieved()) {
-		// if the payload and player collide, remove the payload
-		if (playerPayloadCollision(player.getImage(),payload.getImage())) {
-			level.removePayload();
-		}
+			// if the payload and player collide, remove the payload
+			if (playerPayloadCollision(player.getImage(),payload.getImage())) {
+				level.removePayload();
+			}
 		}
 	}
 	

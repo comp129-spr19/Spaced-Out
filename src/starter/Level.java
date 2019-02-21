@@ -18,9 +18,8 @@ import game.Portal;
  *********************************************/
 
 public class Level extends GraphicsPane implements ActionListener {
-	/**********************
-	 * CONSTANTS
-	 **********************/
+
+	/* CONSTANTS */
 	private MainApplication program; //use this 'program.something' for all program calls
 	
 	public static final int VELOCITY = 7;
@@ -28,15 +27,7 @@ public class Level extends GraphicsPane implements ActionListener {
 
 
 	
-	
-	/**********************
-	 * CONSTRUCTOR
-	 * @param app
-	 **********************/	
-	
-	
-	
-	// Variables
+	/* Variables */
 	
 	
 	// pointers to the level before and after this level.
@@ -47,8 +38,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	Payload payload;
 	private Timer timer;
 	private boolean payloadRetrieved;
-	
-	int numTimeIterations;
+
 	
 	public Level(MainApplication app, String levelType) {
 		super();
@@ -105,13 +95,7 @@ public class Level extends GraphicsPane implements ActionListener {
 			player.move(0, VELOCITY);
 		}
 	}
-	@Override
-	public void mousePressed(MouseEvent e) {
-		GObject obj = program.getElementAt(e.getX(), e.getY());
-		if (obj == portalRight.getImage()) {
-			program.switchLevel(true);
-		}
-	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		CollisionChecker.collisions(this, player,portalLeft, portalRight, payload,payloadRetrieved);
@@ -146,17 +130,16 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.removeAll();
 	}
 	
-	/* switches to the next level */
+	/* switches to the next level. If movingRight is true, switch to the next level.
+	 * Otherwise switch to the previous level.  */
 	public void switchScreen(boolean movingRight) {
 		// stop the timer for this level
 		timer.stop();
-		
-		// set the number of iterations, so we can again experience this delay.
-		numTimeIterations = 0;
 		// switch screens
 		program.switchLevel(movingRight);
 	}
 	
+	// removes the payload and sets payloadRetrieved to true
 	public void removePayload() {
 		program.remove(payload.getImage());
 		payloadRetrieved = true;
