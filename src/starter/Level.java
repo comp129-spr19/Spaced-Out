@@ -39,7 +39,8 @@ public class Level extends GraphicsPane implements ActionListener {
 	private Timer timer;
 	private boolean payloadRetrieved;
 
-	
+	// creates a new level. Differentiates between first and last level
+	// based on the string provided
 	public Level(MainApplication app, String levelType) {
 		super();
 		program = app;
@@ -64,10 +65,12 @@ public class Level extends GraphicsPane implements ActionListener {
 		//movement.start();
 	}
 	
+	// sets the previous level pointer
 	public void setPrev(Level previous) {
 		this.prev = previous;
 	}
 	
+	// sets the next level pointer
 	public void setNext(Level next) {
 		this.next = next;
 	}
@@ -102,7 +105,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		
 	}
 	
-	
+	// start the internal timer
 	public void startTimer() {
 		timer.start();
 	}
@@ -145,10 +148,12 @@ public class Level extends GraphicsPane implements ActionListener {
 		payloadRetrieved = true;
 	}
 	
+	// return the next level
 	public Level getNext() {
 		return next;
 	}
 	
+	// check if payload has been retrieved
 	public boolean payloadRetrieved() {
 		return payloadRetrieved;
 	}
