@@ -7,6 +7,8 @@ public class Payload {
 	public static final int PAYLOAD_HEIGHT = 50;
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;
+	
+	
 	private GRect image;
 
 	// Default Constructor
@@ -21,8 +23,8 @@ public class Payload {
 	}
 
 	// Moves GImage
-	public void move(int x, int y) {
-		this.image.move(x, y);
+	public void moveTo(double x, double y) {
+		this.image.setLocation(x, y);
 	}
 
 	// Sets payload image

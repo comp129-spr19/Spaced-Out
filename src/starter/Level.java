@@ -22,7 +22,6 @@ public class Level extends GraphicsPane implements ActionListener {
 	/* CONSTANTS */
 	private MainApplication program; //use this 'program.something' for all program calls
 	
-	public static final int VELOCITY = 7;
 	public static final int TIMER = 100;
 
 
@@ -83,19 +82,19 @@ public class Level extends GraphicsPane implements ActionListener {
 	public void keyPressed(KeyEvent e) {
 		//Key Press Left or 'A'
 		if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
-			player.move(-1 * VELOCITY, 0);
+			player.move(-1, 0);
 		}
 		//Key Press Right or 'D'
 		if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
-			player.move(VELOCITY, 0);
+			player.move(1, 0);
 		}
 		//Key Press Up or 'W'
 		if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP) {
-			player.move(0, -1 *VELOCITY);
+			player.move(0, -1);
 		}
 		//Key Press Down or 'S'
 		if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
-			player.move(0, VELOCITY);
+			player.move(0, 1);
 		}
 	}
 	
@@ -144,7 +143,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	
 	// removes the payload and sets payloadRetrieved to true
 	public void removePayload() {
-		program.remove(payload.getImage());
+		player.addPayload(payload);
 		payloadRetrieved = true;
 	}
 	
