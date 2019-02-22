@@ -2,6 +2,7 @@ package starter;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -129,6 +130,12 @@ public class Level extends GraphicsPane implements ActionListener {
 		}
 		if (!(payloadRetrieved)) {
 			program.add(payload.getImage());
+		}
+		
+		ArrayList<Payload> collectedPayload = player.getPayloads();
+		
+		for (int i = 0; i < collectedPayload.size(); i++) {
+			program.add(collectedPayload.get(i).getImage());
 		}
 	}
 	@Override

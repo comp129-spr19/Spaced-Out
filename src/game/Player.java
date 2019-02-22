@@ -59,5 +59,9 @@ public class Player {
 	public int getHeight() {
 		return PLAYER_SIZE;
 	}
+	
+	public ArrayList<Payload> getPayloads() {
+		return collectedPayload;
+	}
 
 }
