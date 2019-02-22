@@ -9,7 +9,7 @@ public class MainApplication extends GraphicsApplication {
 	 * GLOBAL VARIABLES
 	 ******************/
 	
-	public static final int MAX_LEVELS = 5;
+	public static final int MAX_LEVELS = 3;
 	
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;

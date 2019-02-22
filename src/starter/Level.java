@@ -22,7 +22,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	/* CONSTANTS */
 	private MainApplication program; //use this 'program.something' for all program calls
 	
-	public static final int VELOCITY = 7;
+	public static final int VELOCITY = 10;
 	public static final int TIMER = 100;
 
 
