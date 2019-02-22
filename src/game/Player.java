@@ -55,5 +55,9 @@ public class Player {
 		this.image.setLocation(x, y);
 		this.move(0, 0);
 	}
+	
+	public int getHeight() {
+		return PLAYER_SIZE;
+	}
 
 }
