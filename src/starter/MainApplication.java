@@ -18,6 +18,7 @@ public class MainApplication extends GraphicsApplication {
 
 	private Level[] levels;
 	private int count;
+	private IntroPane introPane; 
 
 	// keeps track of the current level we are on. 
 	private int currentIndex;
@@ -35,6 +36,7 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 
 		levels = new Level[MAX_LEVELS];
+		introPane = new IntroPane(this);
 		
 		// initialize the array of levels. 
 		Level prev = null;
@@ -59,9 +61,10 @@ public class MainApplication extends GraphicsApplication {
 			curr = next;
 			
 		}
-		currentIndex = 0;
+		/* currentIndex = 0;
 		levels[currentIndex].startTimer();
-		switchToScreen(levels[currentIndex]);
+		switchToScreen(levels[currentIndex]); */
+		switchToScreen(introPane);
 	}
 
 	/*****************************
