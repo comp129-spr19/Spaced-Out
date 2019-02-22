@@ -59,7 +59,7 @@ public class MainApplication extends GraphicsApplication {
 			curr = next;
 			
 		}
-		
+
 		curr.setNext(null);
 		curr.setPrev(prev);
 		currentIndex = 0;
