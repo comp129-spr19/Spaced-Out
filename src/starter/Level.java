@@ -144,6 +144,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	// removes the payload and sets payloadRetrieved to true
 	public void removePayload() {
 		player.addPayload(payload);
+		//this is a comment because I broke git
 		payloadRetrieved = true;
 	}
 	
