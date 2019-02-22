@@ -3,6 +3,7 @@ package starter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 
@@ -19,6 +20,9 @@ public class Level extends GraphicsPane implements ActionListener {
 
 	/* CONSTANTS */
 	private MainApplication program; // use this 'program.something' for all program calls
+
+	public static final int SPAWN_CHAR_LEFT_PORTAL_X = 100;
+	public static final int SPAWN_CHAR_RIGHT_PORTAL_X = 700;
 
 	public static final int TIMER = 100;
 
@@ -124,6 +128,12 @@ public class Level extends GraphicsPane implements ActionListener {
 		if (!(payloadRetrieved)) {
 			program.add(payload.getImage());
 		}
+
+		ArrayList<Payload> collectedPayload = player.getPayloads();
+
+		for (int i = 0; i < collectedPayload.size(); i++) {
+			program.add(collectedPayload.get(i).getImage());
+		}
 	}
 
 	@Override
@@ -139,7 +149,25 @@ public class Level extends GraphicsPane implements ActionListener {
 		// stop the timer for this level
 		timer.stop();
 		// switch screens
+		if (movingRight) {
+			next.setPlayer(this.player);
+			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
+					MainApplication.centerHeight(next.getPlayer().getHeight()));
+
+		} else {
+			prev.setPlayer(this.player);
+			prev.getPlayer().respawnTo(SPAWN_CHAR_RIGHT_PORTAL_X,
+					MainApplication.centerHeight(prev.getPlayer().getHeight()));
+		}
 		program.switchLevel(movingRight);
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 	// removes the payload and sets payloadRetrieved to true
