@@ -1,0 +1,12 @@
+recursive functions have base cases and recursive steps
+
+base cases return a value independent of recursive function calls to the same function
+
+recursive steps return a value dependent on recursive function calls with altered parameter(s), closer to a base case
+
+function call stack winds when recursive function pushes (adds) its contents (for example, local variables and function arguments) to the call stack as a stack frame
+
+function call stack unwinds when recursive function returns its answer to the caller and pops (removes) its contents from the call stack
+
+https://codingfox.com/11-2-recursion-memory-stack-overflow/
+http://web.mit.edu/6.005/www/fa15/classes/10-recursion/
