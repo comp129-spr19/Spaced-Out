@@ -2,13 +2,14 @@ package game;
 
 import acm.graphics.GRect;
 import starter.MainApplication;
+import utility.CollisionHandler;
 
 public class Payload {
 	public static final int PAYLOAD_HEIGHT = 50;
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;
 	
-	
+	private Payload nextLoad = null;
 	private GRect image;
 
 	// Default Constructor
@@ -23,8 +24,13 @@ public class Payload {
 	}
 
 	// Moves GImage
-	public void moveTo(double x, double y) {
-		this.image.setLocation(x, y);
+	public void moveTo(double x, double y, int dir, int extra, double gap) {
+		this.image.setLocation(x - (extra * this.image.getWidth()), y - (this.image.getHeight() / 2));
+		if (nextLoad != null) {
+			double nextX = CollisionHandler.getCenter(this.image).getX() + (dir * ((this.image.getWidth() / 2) + gap));
+			double nextY = CollisionHandler.getCenter(this.image).getY();
+			nextLoad.moveTo(nextX, nextY, dir, extra, gap);
+		}
 	}
 
 	// Sets payload image
@@ -35,5 +41,13 @@ public class Payload {
 	// Returns payload image
 	public GRect getImage() {
 		return this.image;
+	}
+	
+	public void addPayload(Payload add) {
+		if (nextLoad == null) {
+			nextLoad = add;
+		} else {
+			nextLoad.addPayload(add);
+		}
 	}
 }

@@ -12,7 +12,9 @@ public class Player {
 	public static final double TAILING_GAP = 10;
 	
 	private ArrayList<Payload> collectedPayload;
+	private Payload firstLoad = null;
 	private GOval image;
+	private int direction = 1;
 
 	// Default Constructor
 	public Player() {
@@ -29,15 +31,17 @@ public class Player {
 	// Moves GImage
 	public void move(int x, int y) {
 		this.image.move(x * VELOCITY, y * VELOCITY);
-		x = -1 * x;
-		y = -1 * y;
-		double lastX = (image.getX() + (image.getWidth() / 2)) + (x * ((image.getWidth() / 2) + TAILING_GAP));
-		double lastY = CollisionHandler.getCenter(image).getY() + (y * ((image.getHeight() / 2) + TAILING_GAP));
-		for (Payload load: collectedPayload) {
-			GObject loadImage = load.getImage();
-			load.moveTo(lastX - (loadImage.getWidth() / 2), lastY - (loadImage.getHeight() / 2));
-			lastX += x * (loadImage.getWidth() + TAILING_GAP);
-			lastY += y * (loadImage.getHeight() + TAILING_GAP);
+		if (firstLoad != null) {
+			if (x != 0) {
+				direction = -1 * x;
+			}
+			int extraGap = 1;
+			if (direction >= 0) {
+				extraGap = 0;
+			}
+			double nextX = CollisionHandler.getCenter(image).getX() + (direction * ((image.getWidth() / 2) + TAILING_GAP));
+			double nextY = CollisionHandler.getCenter(image).getY();
+			firstLoad.moveTo(nextX, nextY, direction, extraGap, TAILING_GAP);
 		}
 	}
 
@@ -53,6 +57,11 @@ public class Player {
 	
 	public void addPayload(Payload add) {
 		collectedPayload.add(add);
+		if (firstLoad == null) {
+			firstLoad = add;
+		} else {
+			firstLoad.addPayload(add);
+		}
 	}
 	
 	public void respawnTo(double x, double y) {
