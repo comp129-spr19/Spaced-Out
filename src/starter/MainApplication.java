@@ -8,9 +8,9 @@ public class MainApplication extends GraphicsApplication {
 	/******************
 	 * GLOBAL VARIABLES
 	 ******************/
-	
+
 	public static final int MAX_LEVELS = 3;
-	
+
 	public static final int WINDOW_WIDTH = 800;
 	public static final int WINDOW_HEIGHT = 600;
 	public static final String MUSIC_FOLDER = "sounds";
@@ -19,9 +19,9 @@ public class MainApplication extends GraphicsApplication {
 	private Level[] levels;
 	private int count;
 
-	// keeps track of the current level we are on. 
+	// keeps track of the current level we are on.
 	private int currentIndex;
-	
+
 	/***************
 	 * SCREEN SET UP
 	 ***************/
@@ -35,33 +35,30 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 
 		levels = new Level[MAX_LEVELS];
-		
-		// initialize the array of levels. 
+
+		// initialize the array of levels.
 		Level prev = null;
 		Level curr = null;
 		Level next = null;
 		for (int i = 0; i < MAX_LEVELS; i++) {
 			if (i == 0) {
-			levels[i] = new Level(this,"first");
-			} else if (i == MAX_LEVELS-1) {
-			levels[i] = new Level(this,"last");	
+				levels[i] = new Level(this, "first", i);
+			} else if (i == MAX_LEVELS - 1) {
+				levels[i] = new Level(this, "last", i);
 			} else {
-			levels[i] = new Level(this,"mid");
+				levels[i] = new Level(this, "mid", i);
 			}
 			next = levels[i];
-			
+
 			if (curr != null) {
 				curr.setNext(next);
 				curr.setPrev(prev);
 			}
-			
+
 			prev = curr;
 			curr = next;
-			
-		}
 
-		curr.setNext(null);
-		curr.setPrev(prev);
+		}
 		currentIndex = 0;
 		levels[currentIndex].startTimer();
 		switchToScreen(levels[currentIndex]);
@@ -70,9 +67,9 @@ public class MainApplication extends GraphicsApplication {
 	/*****************************
 	 * WINDOW SWITCHING AND HIDING
 	 *****************************/
-	
+
 	// if movingRight true, we move to the next possible screen,
-	// otherwise we move left. 
+	// otherwise we move left.
 	public void switchLevel(boolean movingRight) {
 		if (movingRight) {
 			currentIndex++;
@@ -85,16 +82,12 @@ public class MainApplication extends GraphicsApplication {
 		}
 	}
 	/*
-	public void switchToMenu() {
-		count++;
-		levelOne.startTimer();
-		switchToScreen(levelOne);
-	}
-
-	public void switchToSome() {
-		levelTwo.startTimer();
-		switchToScreen(levelTwo);
-	} */
+	 * public void switchToMenu() { count++; levelOne.startTimer();
+	 * switchToScreen(levelOne); }
+	 * 
+	 * public void switchToSome() { levelTwo.startTimer(); switchToScreen(levelTwo);
+	 * }
+	 */
 
 	/****************
 	 * HELPER METHODS

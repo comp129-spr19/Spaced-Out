@@ -67,13 +67,5 @@ public class Player {
 	public void respawnTo(double x, double y) {
 		this.image.setLocation(x, y);
 	}
-	
-	public int getHeight() {
-		return PLAYER_SIZE;
-	}
-	
-	public ArrayList<Payload> getPayloads() {
-		return collectedPayload;
-	}
 
 }
