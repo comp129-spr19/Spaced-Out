@@ -59,4 +59,14 @@ public class Player {
 		this.image.setLocation(x, y);
 	}
 
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return PLAYER_SIZE;
+	}
+
+	public ArrayList<Payload> getPayloads() {
+		// TODO Auto-generated method stub
+		return collectedPayload;
+	}
+
 }

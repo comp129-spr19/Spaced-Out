@@ -59,6 +59,9 @@ public class MainApplication extends GraphicsApplication {
 			curr = next;
 
 		}
+		
+		curr.setPrev(prev);
+		curr.setNext(null);
 		currentIndex = 0;
 		levels[currentIndex].startTimer();
 		switchToScreen(levels[currentIndex]);
