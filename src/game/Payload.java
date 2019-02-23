@@ -9,13 +9,14 @@ public class Payload {
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;
 	
-	private Payload nextLoad = null;
+	private Payload nextLoad;
 	private GRect image;
 
 	// Default Constructor
 	public Payload() {
 		this.image = new GRect(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2, PAYLOAD_WIDTH,
 				PAYLOAD_HEIGHT);
+		this.nextLoad = null;
 	}
 
 	// Overloaded Constructor
@@ -44,7 +45,7 @@ public class Payload {
 	}
 	
 	public boolean addPayload(Payload add) {
-		if (nextLoad != null) {
+		if (nextLoad != null || add == this) {
 			return false;
 		}
 		nextLoad = add;

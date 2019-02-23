@@ -12,7 +12,7 @@ public class Player {
 	public static final double TAILING_GAP = 10;
 	
 	private ArrayList<Payload> collectedPayload;
-	private Payload firstLoad = null;
+	private Payload firstLoad;
 	private GOval image;
 	private int direction = 1;
 
@@ -21,6 +21,7 @@ public class Player {
 		this.image = new GOval(PLAYER_START_W, MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE, PLAYER_SIZE);
 		image.setFilled(true);
 		this.collectedPayload = new ArrayList<Payload>();
+		firstLoad = null;
 	}
 
 	// Overloaded Constructor
