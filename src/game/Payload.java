@@ -43,11 +43,11 @@ public class Payload {
 		return this.image;
 	}
 	
-	public void addPayload(Payload add) {
-		if (nextLoad == null) {
-			nextLoad = add;
-		} else {
-			nextLoad.addPayload(add);
+	public boolean addPayload(Payload add) {
+		if (nextLoad != null) {
+			return false;
 		}
+		nextLoad = add;
+		return true;
 	}
 }

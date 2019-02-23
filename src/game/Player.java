@@ -60,7 +60,11 @@ public class Player {
 		if (firstLoad == null) {
 			firstLoad = add;
 		} else {
-			firstLoad.addPayload(add);
+			for (Payload load: collectedPayload) {
+				if (load.addPayload(add)) {
+					break;
+				}
+			}
 		}
 	}
 	
