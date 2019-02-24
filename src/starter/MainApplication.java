@@ -17,6 +17,7 @@ public class MainApplication extends GraphicsApplication {
 	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
 
 	private Level[] levels;
+	private IntroPane introPane;
 	private int count;
 
 	// keeps track of the current level we are on.
@@ -35,6 +36,7 @@ public class MainApplication extends GraphicsApplication {
 	public void run() {
 
 		levels = new Level[MAX_LEVELS];
+		introPane = new IntroPane(this);
 
 		// initialize the array of levels.
 		Level prev = null;
@@ -59,6 +61,8 @@ public class MainApplication extends GraphicsApplication {
 			curr = next;
 
 		}
+		
+		switchToScreen(introPane);
 		
 		curr.setPrev(prev);
 		curr.setNext(null);
@@ -102,9 +106,5 @@ public class MainApplication extends GraphicsApplication {
 
 	public static int centerHeight(int objectHeight) {
 		return (WINDOW_HEIGHT / 2) - (objectHeight / 2);
-	}
-	
-	public void switchToLevelOne() {
-		switchToScreen(levels[0]);
 	}
 }
