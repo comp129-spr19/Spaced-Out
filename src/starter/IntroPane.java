@@ -8,16 +8,17 @@ import acm.graphics.GImage;
 
 public class IntroPane extends GraphicsPane implements ActionListener {
 	
-	private static final int INTRO_DURATION = 23;
-	private static final int SPLASHSCREEN_DURATION = 5;
-	private static final int TIMER_TICK = 1000;
+	private static final int INTRO_DURATION = 23; // duration of intro in seconds
+	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
+	private static final int TIMER_TICK = 1000; // time in milliseconds between timer tick events
 	
-	private MainApplication program;
-	private GImage introVideo, introSplashScreen;
-	private AudioPlayer introSound, splashScreenSound;
-	private Timer endIntro, endSplashScreen;
-	private int introTime, splashScreenTime;
+	private MainApplication program; // graphics program variable
+	private GImage introVideo, introSplashScreen; // variables for intro screens
+	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
+	private Timer endIntro, endSplashScreen; // timers for intro screens
+	private int introTime, splashScreenTime; // time counters for timers
 
+	// Intro screen constructor
 	public IntroPane(MainApplication app) {
 		super();
 		program = app;
@@ -63,11 +64,13 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 			splashScreenTime++;
 			
 			if (splashScreenTime == SPLASHSCREEN_DURATION) {
-				hideContents();
+				program.switchToLevelOne();
 			}
 		}		
 	}	
 	
+	// This is supposed to switch to the splash screen, 
+	// but it doesn't currently work
 	public void keyPressed(KeyEvent e) {
 		int keyEvent = e.getKeyCode();
 		switch (keyEvent) {
@@ -77,6 +80,8 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		}		
 	}
 	
+	// Refactored function to switch from the intro to 
+	// the splash screen
 	private void switchIntroScreens() {
 		program.remove(introVideo);
 		introSound.stopSound("sounds", "GradiusIntroAudio.mp3");
