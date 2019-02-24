@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 import acm.graphics.GRect;
 import starter.MainApplication;
 import utility.CollisionHandler;
@@ -11,11 +13,14 @@ public class Payload {
 	
 	private Payload nextLoad;
 	private GRect image;
+	
 
 	// Default Constructor
 	public Payload() {
 		this.image = new GRect(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2, PAYLOAD_WIDTH,
 				PAYLOAD_HEIGHT);
+		image.setFilled(true);
+		image.setFillColor(Color.WHITE);
 		this.nextLoad = null;
 	}
 

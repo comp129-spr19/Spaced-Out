@@ -10,8 +10,8 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	
 	private static final int INTRO_DURATION = 23; // duration of intro in seconds
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
-	private static final int TIMER_TICK = 1000; // time in milliseconds between timer tick events
-	
+	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
+	private static final int TIMER_TICK_SPLASH = 1200; // time in milliseconds between timer tick events
 	private MainApplication program; // graphics program variable
 	private GImage introVideo, introSplashScreen; // variables for intro screens
 	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
@@ -23,13 +23,14 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		super();
 		program = app;
 		introVideo = new GImage("GradiusIntro.gif");
+		
 		introSplashScreen = new GImage("SpacedOutLogoScreen.gif");
 		introVideo.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		introSplashScreen.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		introSound = AudioPlayer.getInstance();
 		splashScreenSound = AudioPlayer.getInstance();
-		endIntro = new Timer(TIMER_TICK, this);
-		endSplashScreen = new Timer(TIMER_TICK, this);
+		endIntro = new Timer(TIMER_TICK_INTRO, this);
+		endSplashScreen = new Timer(TIMER_TICK_SPLASH, this);
 		introTime = 0;
 		splashScreenTime = 0;
 	}	

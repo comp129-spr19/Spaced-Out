@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 import acm.graphics.GOval;
 import starter.MainApplication;
 
@@ -24,6 +26,8 @@ public class Portal {
 		} else if (portalType.equals("left")) {
 		image = new GOval(PORTAL_LEFT_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
 		}
+		image.setFilled(true);
+		image.setFillColor(Color.WHITE);
 	}
 	
 	public GOval getImage() {

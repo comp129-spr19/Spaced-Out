@@ -1,4 +1,5 @@
 package starter;
+import acm.graphics.GImage;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,12 +38,15 @@ public class Level extends GraphicsPane implements ActionListener {
 	Payload payload;
 	private Timer timer;
 	private boolean payloadRetrieved;
-
+	private GImage background = new GImage("LevelsBackgroundRightToLeft.gif",0,0);
+			
 	// creates a new level. Differentiates between first and last level
 	// based on the string provided
 	public Level(MainApplication app, String levelType, int stack) {
 		super();
 		program = app;
+		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
+		background.sendToBack();
 		player = new Player();
 		payload = new Payload();
 		prev = null;
@@ -116,9 +120,10 @@ public class Level extends GraphicsPane implements ActionListener {
 	 **********************/
 	@Override
 	public void showContents() {
-
+		program.add(background);
 		program.add(player.getImage());
-
+		
+		AudioPlayer.getInstance().playSound("sounds", "LevelMusic.mp3");
 		if (portalLeft != null) {
 			program.add(portalLeft.getImage());
 		}

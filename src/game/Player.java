@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.util.*;
 import acm.graphics.*;
 import starter.MainApplication;
@@ -20,6 +21,7 @@ public class Player {
 	public Player() {
 		this.image = new GOval(PLAYER_START_W, MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE, PLAYER_SIZE);
 		image.setFilled(true);
+		image.setFillColor(Color.WHITE);
 		this.collectedPayload = new ArrayList<Payload>();
 		firstLoad = null;
 	}
