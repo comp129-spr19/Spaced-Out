@@ -1,5 +1,6 @@
 package starter;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import acm.graphics.GRect;
 import game.CollisionChecker;
 import game.Payload;
 import game.Player;
@@ -26,6 +28,8 @@ public class Level extends GraphicsPane implements ActionListener {
 
 	public static final int TIMER = 100;
 
+	public static final int ASPECT_RATIO = 6;
+
 	/* Variables */
 	private int callStack;
 
@@ -37,12 +41,20 @@ public class Level extends GraphicsPane implements ActionListener {
 	Payload payload;
 	private Timer timer;
 	private boolean payloadRetrieved;
+	private GRect topMatte, bottomMatte;
 
 	// creates a new level. Differentiates between first and last level
 	// based on the string provided
 	public Level(MainApplication app, String levelType, int stack) {
 		super();
 		program = app;
+
+		topMatte = new GRect(0, 0, app.WINDOW_WIDTH, app.WINDOW_HEIGHT / ASPECT_RATIO);
+		bottomMatte = new GRect(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO), app.WINDOW_WIDTH,
+				app.WINDOW_HEIGHT / ASPECT_RATIO);
+		formatMatte(topMatte);
+		formatMatte(bottomMatte);
+
 		player = new Player();
 		payload = new Payload();
 		prev = null;
@@ -117,6 +129,9 @@ public class Level extends GraphicsPane implements ActionListener {
 	@Override
 	public void showContents() {
 
+		program.add(topMatte);
+		program.add(bottomMatte);
+
 		program.add(player.getImage());
 
 		if (portalLeft != null) {
@@ -190,5 +205,12 @@ public class Level extends GraphicsPane implements ActionListener {
 	// returns the value in call stack
 	public int getCallStack() {
 		return this.callStack;
+	}
+
+	// initializes the widescreen matte panels
+	public void formatMatte(GRect panel) {
+		panel.setColor(Color.BLACK);
+		panel.setFilled(true);
+		panel.setFillColor(Color.BLACK);
 	}
 }
