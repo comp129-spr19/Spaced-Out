@@ -103,4 +103,8 @@ public class MainApplication extends GraphicsApplication {
 	public static int centerHeight(int objectHeight) {
 		return (WINDOW_HEIGHT / 2) - (objectHeight / 2);
 	}
+	
+	public void switchToLevelOne() {
+		switchToScreen(levels[0]);
+	}
 }
