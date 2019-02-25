@@ -8,7 +8,7 @@ import acm.graphics.GImage;
 
 public class IntroPane extends GraphicsPane implements ActionListener {
 	
-	private static final int INTRO_DURATION = 23; // duration of intro in seconds
+	private static final int INTRO_DURATION = 17; // duration of intro in seconds
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
 	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
 	private static final int TIMER_TICK_SPLASH = 1200; // time in milliseconds between timer tick events
@@ -22,7 +22,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	public IntroPane(MainApplication app) {
 		super();
 		program = app;
-		introVideo = new GImage("GradiusIntro.gif");
+		introVideo = new GImage("gradiusIntro.gif");
 		
 		introSplashScreen = new GImage("spaceout_intro.gif");
 		introVideo.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
