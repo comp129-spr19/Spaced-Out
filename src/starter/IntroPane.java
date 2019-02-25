@@ -75,15 +75,16 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 			
 			if (splashScreenTime == SPLASHSCREEN_DURATION) {
 				String input;
-				int factorial;						
-					do {
-						input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
-						try {
-							factorial = Integer.parseInt(input);
-					    } catch (NumberFormatException | NullPointerException npe) {
-					        factorial = -1;
-					    }
-					} while (factorial <= 0 || factorial > 4);
+				int factorial;	
+				
+				do {
+					input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
+					try {
+						factorial = Integer.parseInt(input);
+				    } catch (NumberFormatException | NullPointerException nullException) {
+				        factorial = -1;
+				    }
+				} while (factorial <= 0 || factorial > 4);
 
 				program.switchToLevelOne();
 			}
