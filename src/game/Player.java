@@ -14,21 +14,20 @@ public class Player {
 	
 	private ArrayList<Payload> collectedPayload;
 	private Payload firstLoad;
-	private GOval image;
+	private GImage image;
 	private int direction = 1;
 
 	// Default Constructor
 	public Player() {
-		this.image = new GOval(PLAYER_START_W, MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE, PLAYER_SIZE);
-		image.setFilled(true);
-		image.setFillColor(Color.WHITE);
+		this.image = new GImage("FrontShipStationary.png", MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE);
 		this.collectedPayload = new ArrayList<Payload>();
 		firstLoad = null;
 	}
 
 	// Overloaded Constructor
 	public Player(int startX, int startY, int playerWidth, int playerHeight) {
-		this.image = new GOval(startX, startY, playerWidth, playerHeight);
+		this.image = new GImage("FrontShipStationary.png",startX, startY);
+		image.setLocation(startX, startY);
 	}
 
 	// Moves GImage
@@ -50,7 +49,7 @@ public class Player {
 
 	// Sets player image
 	public void setImage(GObject character) {
-		this.image = (GOval) character;
+		this.image = (GImage) character;
 	}
 
 	// Returns player image
