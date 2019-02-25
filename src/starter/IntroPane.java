@@ -7,13 +7,14 @@ import java.awt.event.KeyEvent;
 import javax.swing.Timer;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
+import javax.swing.JOptionPane;
 
 public class IntroPane extends GraphicsPane implements ActionListener {
 	
 	private static final int INTRO_DURATION = 17; // duration of intro in seconds
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
 	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
-	private static final int TIMER_TICK_SPLASH = 1400; // time in milliseconds between timer tick events
+	private static final int TIMER_TICK_SPLASH = 100; // time in milliseconds between timer tick events
 	private MainApplication program; // graphics program variable
 	private GImage introVideo, introSplashScreen; // variables for intro screens
 	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
@@ -22,6 +23,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	private GLabel pressEnter;
 	private double WINDOW_WIDTH = MainApplication.WINDOW_WIDTH;
 	private double WINDOW_HEIGHT = MainApplication.WINDOW_HEIGHT;
+	
 
 	// Intro screen constructor
 	public IntroPane(MainApplication app) {
@@ -73,6 +75,15 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 			splashScreenTime++;
 			
 			if (splashScreenTime == SPLASHSCREEN_DURATION) {
+				String input;
+				int factorial;
+					input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
+					factorial = Integer.parseInt(input);	
+					while (factorial <= 0 || factorial > 4) {
+						input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
+						factorial = Integer.parseInt(input);				
+					}
+
 				program.switchToLevelOne();
 			}
 		}		
@@ -86,13 +97,9 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		case KeyEvent.VK_ENTER:
 			switchIntroScreens();
 			break;
-		case KeyEvent.VK_SPACE:
-			program.remove(introVideo);
-			introSound.stopSound("sounds", "GradiusIntroAudio.mp3");
-			endIntro.stop();
-			program.switchToLevelOne();
 		}		
 	}
+
 	
 	// Refactored function to switch from the intro to 
 	// the splash screen
@@ -101,7 +108,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		introSound.stopSound("sounds", "GradiusIntroAudio.mp3");
 		endIntro.stop();
 		program.add(introSplashScreen);
-		splashScreenSound.playSound("sounds", "SpeacedOutScreenMusic.mp3");
+		splashScreenSound.playSound("sounds", "SpeacedOutScreenMusic.mp3", true);
 		endSplashScreen.start();
 	}
 }
