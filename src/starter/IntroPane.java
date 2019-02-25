@@ -30,6 +30,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		program = app;
 		introVideo = new GImage("gintro_opt.gif");
 		pressEnter = new GLabel("Press 'Enter' to Skip");
+		pressEnter.setFont("ocraextended-30");
 		pressEnter.setLocation(WINDOW_WIDTH / 2 - pressEnter.getWidth() / 2, WINDOW_HEIGHT * .90);
 		pressEnter.setColor(Color.WHITE);
 		introSplashScreen = new GImage("spaceout_intro.gif");
@@ -81,7 +82,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 					input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
 					try {
 						factorial = Integer.parseInt(input);
-				    } catch (NumberFormatException | NullPointerException nullException) {
+				    } catch (NumberFormatException | NullPointerException ex) {
 				        factorial = -1;
 				    }
 				} while (factorial <= 0 || factorial > 4);
