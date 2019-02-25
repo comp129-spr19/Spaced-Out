@@ -33,6 +33,7 @@ public class Level extends GraphicsPane implements ActionListener {
 
 	/* Variables */
 	private int callStack;
+	private GButton[] stackBricks;
 
 	// pointers to the level before and after this level.
 	Level prev, next;
@@ -42,7 +43,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	Payload payload;
 	private Timer timer;
 	private boolean payloadRetrieved;
-	private GImage background = new GImage("LevelsBackgroundRightToLeft.gif", 0, 0);
+	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GRect topMatte, bottomMatte;
 
 	// creates a new level. Differentiates between first and last level
@@ -52,11 +53,13 @@ public class Level extends GraphicsPane implements ActionListener {
 		program = app;
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		background.sendToBack();
+
 		topMatte = new GRect(0, 0, app.WINDOW_WIDTH, app.WINDOW_HEIGHT / ASPECT_RATIO);
 		bottomMatte = new GRect(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO), app.WINDOW_WIDTH,
 				app.WINDOW_HEIGHT / ASPECT_RATIO);
 		formatMatte(topMatte);
 		formatMatte(bottomMatte);
+
 		player = new Player();
 		payload = new Payload();
 		prev = null;
@@ -72,6 +75,9 @@ public class Level extends GraphicsPane implements ActionListener {
 			portalRight = new Portal("right"); // create rightmost portal
 			portalLeft = new Portal("left"); // create leftmost portal
 		}
+
+		stackBricks = new GButton[stack];
+		initStackBricks();
 
 		timer = new Timer(TIMER, this);
 
@@ -138,6 +144,11 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(background);
 		program.add(topMatte);
 		program.add(bottomMatte);
+
+		for (int i = 0; i < callStack; i++) {
+			program.add(stackBricks[i]);
+		}
+
 		program.add(player.getImage());
 
 		AudioPlayer.getInstance().playSound("sounds", "LevelMusic.mp3", true);
@@ -219,5 +230,15 @@ public class Level extends GraphicsPane implements ActionListener {
 		panel.setColor(Color.BLACK);
 		panel.setFilled(true);
 		panel.setFillColor(Color.BLACK);
+	}
+
+	// initialize the array of stack call bricks
+	public void initStackBricks() {
+		double brickSize = MainApplication.WINDOW_HEIGHT / ASPECT_RATIO;
+
+		for (int i = 0; i < callStack; i++) {
+			stackBricks[i] = new GButton(String.valueOf(i + 1), i * brickSize, 0.0, brickSize, brickSize,
+					Color.DARK_GRAY);
+		}
 	}
 }

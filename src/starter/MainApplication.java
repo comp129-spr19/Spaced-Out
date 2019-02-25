@@ -33,12 +33,12 @@ public class MainApplication extends GraphicsApplication {
 	/*************
 	 * CONSTRUCTOR
 	 *************/
-	public void run() {		
+	public void run() {
 		levels = new Level[MAX_LEVELS];
 		introPane = new IntroPane(this);
 		currentIndex = 0;
-		
-		switchToScreen(introPane);		
+
+		switchToScreen(introPane);
 	}
 
 	/*****************************
@@ -77,19 +77,19 @@ public class MainApplication extends GraphicsApplication {
 	public static int centerHeight(int objectHeight) {
 		return (WINDOW_HEIGHT / 2) - (objectHeight / 2);
 	}
-	
+
 	// initialize the array of levels.
-	public void initLevelArray() {		
+	public void initLevelArray() {
 		Level prev = null;
 		Level curr = null;
 		Level next = null;
 		for (int i = 0; i < MAX_LEVELS; i++) {
 			if (i == 0) {
-				levels[i] = new Level(this, "first", i);
+				levels[i] = new Level(this, "first", i + 1);
 			} else if (i == MAX_LEVELS - 1) {
-				levels[i] = new Level(this, "last", i);
+				levels[i] = new Level(this, "last", i + 1);
 			} else {
-				levels[i] = new Level(this, "mid", i);
+				levels[i] = new Level(this, "mid", i + 1);
 			}
 			next = levels[i];
 
@@ -102,14 +102,14 @@ public class MainApplication extends GraphicsApplication {
 			curr = next;
 
 		}
-		
+
 		curr.setPrev(prev);
 		curr.setNext(null);
 	}
-	
+
 	// switch screen to the first level
 	public void switchToLevelOne() {
-		initLevelArray();		
+		initLevelArray();
 		levels[currentIndex].startTimer();
 		switchToScreen(levels[currentIndex]);
 	}
