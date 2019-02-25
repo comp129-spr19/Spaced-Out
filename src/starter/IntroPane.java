@@ -20,17 +20,20 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	private Timer endIntro, endSplashScreen; // timers for intro screens
 	private int introTime, splashScreenTime; // time counters for timers
 	private GLabel pressEnter;
+	private double WINDOW_WIDTH = MainApplication.WINDOW_WIDTH;
+	private double WINDOW_HEIGHT = MainApplication.WINDOW_HEIGHT;
 
 	// Intro screen constructor
 	public IntroPane(MainApplication app) {
 		super();
 		program = app;
 		introVideo = new GImage("gintro_opt.gif");
-		pressEnter = new GLabel("Press 'Enter' to Skip", MainApplication.WINDOW_WIDTH/2 - 50, MainApplication.WINDOW_HEIGHT - 25);
+		pressEnter = new GLabel("Press 'Enter' to Skip");
+		pressEnter.setLocation(WINDOW_WIDTH / 2 - pressEnter.getWidth() / 2, WINDOW_HEIGHT * .90);
 		pressEnter.setColor(Color.WHITE);
 		introSplashScreen = new GImage("spaceout_intro.gif");
-		introVideo.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
-		introSplashScreen.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
+		introVideo.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		introSplashScreen.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		introSound = AudioPlayer.getInstance();
 		splashScreenSound = AudioPlayer.getInstance();
 		endIntro = new Timer(TIMER_TICK_INTRO, this);

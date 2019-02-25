@@ -9,7 +9,7 @@ import utility.CollisionHandler;
 public final class CollisionChecker {
 	
 	/* Checks collision between the portal and player */
-	private static boolean playerPortalCollision(GObject player, GOval portal) {
+	private static boolean playerPortalCollision(GObject player, GImage portal) {
 		return CollisionHandler.checkCircRectCollision(player, portal);
 	}
 	

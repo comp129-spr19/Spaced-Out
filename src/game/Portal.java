@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Color;
 
+import acm.graphics.GImage;
 import acm.graphics.GOval;
 import starter.MainApplication;
 
@@ -17,24 +18,26 @@ public class Portal {
 	
 	// private variables
 	
-	private GOval image;
+	private GImage image;
 	
 	// if specified will create a right portal, otherwise will just create a left portal
 	public Portal(String portalType) {
 		if (portalType.equals("right")) {
-		image = new GOval(PORTAL_RIGHT_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
+		image = new GImage("BlackHolePortal.gif");
+		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
+		image.setLocation(PORTAL_RIGHT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
 		} else if (portalType.equals("left")) {
-		image = new GOval(PORTAL_LEFT_START_W, MainApplication.centerHeight(PORTAL_HEIGHT), PORTAL_WIDTH, PORTAL_HEIGHT);
+		image = new GImage("BlackHolePortal.gif");
+		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
+		image.setLocation(PORTAL_LEFT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
 		}
-		image.setFilled(true);
-		image.setFillColor(Color.WHITE);
 	}
 	
-	public GOval getImage() {
+	public GImage getImage() {
 		return image;
 	}
 	
-	public void setImage(GOval newImage) {
+	public void setImage(GImage newImage) {
 		image = newImage;
 	}
 }
