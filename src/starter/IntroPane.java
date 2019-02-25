@@ -15,15 +15,14 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
 	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
 	private static final int TIMER_TICK_SPLASH = 280; // time in milliseconds between timer tick events
+	private static final double WINDOW_WIDTH = MainApplication.WINDOW_WIDTH;
+	private static final double WINDOW_HEIGHT = MainApplication.WINDOW_HEIGHT;
 	private MainApplication program; // graphics program variable
 	private GImage introVideo, introSplashScreen; // variables for intro screens
 	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
 	private Timer endIntro, endSplashScreen; // timers for intro screens
 	private int introTime, splashScreenTime; // time counters for timers
-	private GLabel pressEnter;
-	private double WINDOW_WIDTH = MainApplication.WINDOW_WIDTH;
-	private double WINDOW_HEIGHT = MainApplication.WINDOW_HEIGHT;
-	
+	private GLabel pressEnter;	
 
 	// Intro screen constructor
 	public IntroPane(MainApplication app) {
@@ -76,13 +75,15 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 			
 			if (splashScreenTime == SPLASHSCREEN_DURATION) {
 				String input;
-				int factorial;
-					input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
-					factorial = Integer.parseInt(input);	
-					while (factorial <= 0 || factorial > 4) {
+				int factorial;						
+					do {
 						input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
-						factorial = Integer.parseInt(input);				
-					}
+						try {
+							factorial = Integer.parseInt(input);
+					    } catch (NumberFormatException | NullPointerException npe) {
+					        factorial = -1;
+					    }
+					} while (factorial <= 0 || factorial > 4);
 
 				program.switchToLevelOne();
 			}
