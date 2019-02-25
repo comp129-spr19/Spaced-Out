@@ -22,7 +22,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	public IntroPane(MainApplication app) {
 		super();
 		program = app;
-		introVideo = new GImage("gradiusIntro.gif");
+		introVideo = new GImage("gintro_opt.gif");
 		
 		introSplashScreen = new GImage("spaceout_intro.gif");
 		introVideo.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
