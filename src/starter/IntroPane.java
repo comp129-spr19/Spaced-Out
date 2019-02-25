@@ -14,7 +14,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	private static final int INTRO_DURATION = 17; // duration of intro in seconds
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
 	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
-	private static final int TIMER_TICK_SPLASH = 100; // time in milliseconds between timer tick events
+	private static final int TIMER_TICK_SPLASH = 280; // time in milliseconds between timer tick events
 	private MainApplication program; // graphics program variable
 	private GImage introVideo, introSplashScreen; // variables for intro screens
 	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
