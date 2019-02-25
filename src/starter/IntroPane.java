@@ -1,29 +1,33 @@
 package starter;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import javax.swing.Timer;
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 
 public class IntroPane extends GraphicsPane implements ActionListener {
 	
 	private static final int INTRO_DURATION = 17; // duration of intro in seconds
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
 	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
-	private static final int TIMER_TICK_SPLASH = 1200; // time in milliseconds between timer tick events
+	private static final int TIMER_TICK_SPLASH = 1400; // time in milliseconds between timer tick events
 	private MainApplication program; // graphics program variable
 	private GImage introVideo, introSplashScreen; // variables for intro screens
 	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
 	private Timer endIntro, endSplashScreen; // timers for intro screens
 	private int introTime, splashScreenTime; // time counters for timers
+	private GLabel pressEnter;
 
 	// Intro screen constructor
 	public IntroPane(MainApplication app) {
 		super();
 		program = app;
 		introVideo = new GImage("gintro_opt.gif");
-		
+		pressEnter = new GLabel("Press 'Enter' to Skip", MainApplication.WINDOW_WIDTH/2 - 50, MainApplication.WINDOW_HEIGHT - 25);
+		pressEnter.setColor(Color.WHITE);
 		introSplashScreen = new GImage("spaceout_intro.gif");
 		introVideo.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		introSplashScreen.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
@@ -38,6 +42,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	@Override
 	public void showContents() {
 		program.add(introVideo);
+		program.add(pressEnter);
 		introSound.playSound("sounds", "GradiusIntroAudio.mp3");
 		endIntro.start();
 	}
@@ -78,6 +83,11 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		case KeyEvent.VK_ENTER:
 			switchIntroScreens();
 			break;
+		case KeyEvent.VK_SPACE:
+			program.remove(introVideo);
+			introSound.stopSound("sounds", "GradiusIntroAudio.mp3");
+			endIntro.stop();
+			program.switchToLevelOne();
 		}		
 	}
 	
