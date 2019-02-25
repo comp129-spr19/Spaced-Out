@@ -24,7 +24,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		program = app;
 		introVideo = new GImage("GradiusIntro.gif");
 		
-		introSplashScreen = new GImage("SpacedOutLogoScreen.gif");
+		introSplashScreen = new GImage("spaceout_intro.gif");
 		introVideo.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		introSplashScreen.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		introSound = AudioPlayer.getInstance();

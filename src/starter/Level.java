@@ -43,7 +43,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	Payload payload;
 	private Timer timer;
 	private boolean payloadRetrieved;
-	private GImage background = new GImage("LevelsBackgroundRightToLeft.gif", 0, 0);
+	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GRect topMatte, bottomMatte;
 
 	// creates a new level. Differentiates between first and last level
