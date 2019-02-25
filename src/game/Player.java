@@ -1,8 +1,9 @@
 package game;
 
-import java.awt.Color;
-import java.util.*;
-import acm.graphics.*;
+import java.util.ArrayList;
+
+import acm.graphics.GImage;
+import acm.graphics.GObject;
 import starter.MainApplication;
 import utility.CollisionHandler;
 
@@ -11,7 +12,7 @@ public class Player {
 	public static final int PLAYER_START_W = 20;
 	public static final int VELOCITY = 7;
 	public static final double TAILING_GAP = 10;
-	
+
 	private ArrayList<Payload> collectedPayload;
 	private Payload firstLoad;
 	private GImage image;
@@ -19,14 +20,15 @@ public class Player {
 
 	// Default Constructor
 	public Player() {
-		this.image = new GImage("FrontShipStationary.png", MainApplication.centerHeight(PLAYER_SIZE), PLAYER_SIZE);
+		this.image = new GImage("FrontShipStationary.png");
+		this.image.setLocation(PLAYER_START_W, (MainApplication.WINDOW_HEIGHT / 2) - (this.image.getHeight() / 2));
 		this.collectedPayload = new ArrayList<Payload>();
 		firstLoad = null;
 	}
 
 	// Overloaded Constructor
 	public Player(int startX, int startY, int playerWidth, int playerHeight) {
-		this.image = new GImage("FrontShipStationary.png",startX, startY);
+		this.image = new GImage("FrontShipStationary.png", startX, startY);
 		image.setLocation(startX, startY);
 	}
 
@@ -41,7 +43,8 @@ public class Player {
 			if (direction >= 0) {
 				extraGap = 0;
 			}
-			double nextX = CollisionHandler.getCenter(image).getX() + (direction * ((image.getWidth() / 2) + TAILING_GAP));
+			double nextX = CollisionHandler.getCenter(image).getX()
+					+ (direction * ((image.getWidth() / 2) + TAILING_GAP));
 			double nextY = CollisionHandler.getCenter(image).getY();
 			firstLoad.moveTo(nextX, nextY, direction, extraGap, TAILING_GAP);
 		}
@@ -56,20 +59,20 @@ public class Player {
 	public GObject getImage() {
 		return this.image;
 	}
-	
+
 	public void addPayload(Payload add) {
 		collectedPayload.add(add);
 		if (firstLoad == null) {
 			firstLoad = add;
 		} else {
-			for (Payload load: collectedPayload) {
+			for (Payload load : collectedPayload) {
 				if (load.addPayload(add)) {
 					break;
 				}
 			}
 		}
 	}
-	
+
 	public void respawnTo(double x, double y) {
 		this.image.setLocation(x, y);
 	}
