@@ -1,5 +1,4 @@
 package starter;
-import acm.graphics.GImage;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -9,6 +8,7 @@ import java.util.ArrayList;
 
 import javax.swing.Timer;
 
+import acm.graphics.GImage;
 import acm.graphics.GRect;
 import game.CollisionChecker;
 import game.Payload;
@@ -42,7 +42,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	Payload payload;
 	private Timer timer;
 	private boolean payloadRetrieved;
-	private GImage background = new GImage("LevelsBackgroundRightToLeft.gif",0,0);			
+	private GImage background = new GImage("LevelsBackgroundRightToLeft.gif", 0, 0);
 	private GRect topMatte, bottomMatte;
 
 	// creates a new level. Differentiates between first and last level
@@ -97,19 +97,24 @@ public class Level extends GraphicsPane implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// Key Press Left or 'A'
-		if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT) {
+		if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
+				&& (player.getImage().getX() - 1 >= 0)) {
 			player.move(-1, 0);
 		}
 		// Key Press Right or 'D'
-		if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+		if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
+				&& ((player.getImage().getX() + player.getImage().getWidth()) + 1 <= MainApplication.WINDOW_WIDTH)) {
 			player.move(1, 0);
 		}
 		// Key Press Up or 'W'
-		if (e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP) {
+		if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
+				&& (player.getImage().getY() - 1 >= (topMatte.getY() + topMatte.getHeight()))) {
 			player.move(0, -1);
 		}
 		// Key Press Down or 'S'
-		if (e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN) {
+		if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
+				&& ((player.getImage().getY() + player.getImage().getHeight())
+						+ 1 <= (MainApplication.WINDOW_HEIGHT - bottomMatte.getHeight()))) {
 			player.move(0, 1);
 		}
 	}
@@ -134,7 +139,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(topMatte);
 		program.add(bottomMatte);
 		program.add(player.getImage());
-		
+
 		AudioPlayer.getInstance().playSound("sounds", "LevelMusic.mp3", true);
 		if (portalLeft != null) {
 			program.add(portalLeft.getImage());
