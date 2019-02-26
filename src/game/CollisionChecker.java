@@ -14,7 +14,7 @@ public final class CollisionChecker {
 	}
 	
 	/* Checks collision between the player and payload */
-	private static boolean playerPayloadCollision(GObject player, GRect payload) {
+	private static boolean playerPayloadCollision(GObject player, GObject payload) {
 		if (payload == null) {
 			return false;
 		}

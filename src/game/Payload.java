@@ -1,8 +1,7 @@
 package game;
 
-import java.awt.Color;
-
-import acm.graphics.GRect;
+import java.awt.*;
+import acm.graphics.*;
 import starter.MainApplication;
 import utility.CollisionHandler;
 
@@ -10,23 +9,23 @@ public class Payload {
 	public static final int PAYLOAD_HEIGHT = 50;
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;
+	public static final String IMAGE_FILENAME = "robot.gif";
 	
 	private Payload nextLoad;
-	private GRect image;
+	private GImage image;
 	
 
 	// Default Constructor
 	public Payload() {
-		this.image = new GRect(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2, PAYLOAD_WIDTH,
-				PAYLOAD_HEIGHT);
-		image.setFilled(true);
-		image.setFillColor(Color.WHITE);
+		this.image = new GImage(IMAGE_FILENAME, PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2);
+		image.setSize(PAYLOAD_WIDTH, PAYLOAD_HEIGHT);
 		this.nextLoad = null;
 	}
 
 	// Overloaded Constructor
 	public Payload(int startX, int startY, int payloadWidth, int payloadHeight) {
-		this.image = new GRect(startX, startY, payloadWidth, payloadHeight);
+		this.image = new GImage(IMAGE_FILENAME, startX, startY);
+		image.setSize(payloadWidth, payloadHeight);
 	}
 
 	// Moves GImage
@@ -40,12 +39,12 @@ public class Payload {
 	}
 
 	// Sets payload image
-	public void setImage(GRect payload) {
+	public void setImage(GImage payload) {
 		this.image = payload;
 	}
 
 	// Returns payload image
-	public GRect getImage() {
+	public GObject getImage() {
 		return this.image;
 	}
 	
