@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GRect;
 import game.CollisionChecker;
 import game.Payload;
 import game.Player;
 import game.Portal;
+import utility.*;
 
 /*********************************************
  * @authors Danilo, Bette, David, Ivan, Steven
@@ -26,11 +28,11 @@ public class Level extends GraphicsPane implements ActionListener {
 
 	public static final int SPAWN_CHAR_LEFT_PORTAL_X = 100;
 	public static final int SPAWN_CHAR_RIGHT_PORTAL_X = 700;
-
 	public static final int TIMER = 100;
-
+	
 	public static final int ASPECT_RATIO = 6;
-
+	public static final int TBOX_SIZE_Y = MainApplication.WINDOW_HEIGHT/ASPECT_RATIO;
+	public static final int TBOX_SIZE_X = MainApplication.WINDOW_WIDTH;
 	/* Variables */
 	private int callStack;
 	private GButton[] stackBricks;
@@ -45,10 +47,13 @@ public class Level extends GraphicsPane implements ActionListener {
 	private boolean payloadRetrieved;
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GRect topMatte, bottomMatte;
+	private GLabel dialogueBox;
+	private boolean first, last = false;
+	//private GLabel currentPower;
 
 	// creates a new level. Differentiates between first and last level
 	// based on the string provided
-	public Level(MainApplication app, String levelType, int stack) {
+	public Level(MainApplication app, String levelType, int stack, int totalLevels) {
 		super();
 		program = app;
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
@@ -59,7 +64,7 @@ public class Level extends GraphicsPane implements ActionListener {
 				app.WINDOW_HEIGHT / ASPECT_RATIO);
 		formatMatte(topMatte);
 		formatMatte(bottomMatte);
-
+		
 		player = new Player();
 		payload = new Payload();
 		prev = null;
@@ -68,9 +73,11 @@ public class Level extends GraphicsPane implements ActionListener {
 		if (levelType.equals("first")) {
 			portalRight = new Portal("right");
 			portalLeft = null;
+			first = true;
 		} else if (levelType.equals("last")) {
 			portalRight = null;
 			portalLeft = new Portal("left");
+			last = true;
 		} else {
 			portalRight = new Portal("right"); // create rightmost portal
 			portalLeft = new Portal("left"); // create leftmost portal
@@ -79,6 +86,14 @@ public class Level extends GraphicsPane implements ActionListener {
 		stackBricks = new GButton[stack];
 		initStackBricks();
 
+		
+		// adding GLabels in the bottom
+		dialogueBox = new GLabel(FileReader.readWholeFile("OBJECTIVE_ONE.txt"));
+		
+		dialogueBox.setColor(Color.WHITE);
+
+		dialogueBox.setLocation(0, MainApplication.WINDOW_HEIGHT - dialogueBox.getHeight());
+		
 		timer = new Timer(TIMER, this);
 
 		payloadRetrieved = false;
@@ -90,6 +105,14 @@ public class Level extends GraphicsPane implements ActionListener {
 		this.prev = previous;
 	}
 
+	public int factorial(int n) 
+    { 
+        if (n == 0) 
+          return 1; 
+          
+        return n*factorial(n-1); 
+    } 
+	
 	// sets the next level pointer
 	public void setNext(Level next) {
 		this.next = next;
@@ -144,7 +167,8 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(background);
 		program.add(topMatte);
 		program.add(bottomMatte);
-
+		program.add(dialogueBox);
+		dialogueBox.sendToFront();
 		for (int i = 0; i < callStack; i++) {
 			program.add(stackBricks[i]);
 		}
@@ -186,11 +210,19 @@ public class Level extends GraphicsPane implements ActionListener {
 			next.setPlayer(this.player);
 			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
 					MainApplication.centerHeight(next.getPlayer().getHeight()));
+			if(next.isLast()) {
+				next.setDialogue("YOU ARE AT THE BASE DIMENSION, RETRIEVE THE FIRST ROBOT!");
+			}
 
 		} else {
 			prev.setPlayer(this.player);
 			prev.getPlayer().respawnTo(SPAWN_CHAR_RIGHT_PORTAL_X,
 					MainApplication.centerHeight(prev.getPlayer().getHeight()));
+			if (prev.isFirst()) {
+				prev.setDialogue("RETRIEVE THE FINAL ROBOT!");
+			} else {
+				prev.setDialogue("OBJETIVE: Retrive this dimension's robot!");
+			}
 		}
 		program.switchLevel(movingRight);
 	}
@@ -205,8 +237,15 @@ public class Level extends GraphicsPane implements ActionListener {
 
 	// removes the payload and sets payloadRetrieved to true
 	public void removePayload() {
+		AudioPlayer.getInstance().playSound("sounds", "r2d2.mp3", false);
 		player.addPayload(payload);
-		// this is a comment because I broke git
+		if (isFirst()) {
+			dialogueBox.setLabel("MISSION COMPLETE: SUCCESSFULLY RETRIEVED ALL THE ROBOTS");
+			AudioPlayer.getInstance().stopSound("sounds", "LevelMusic.mp3");
+			AudioPlayer.getInstance().playSound("sounds", "game_complete.mp3",false);
+		} else {
+		dialogueBox.setLabel("OBJECTIVE: Retrieve the robot from the previous dimension!");
+		}
 		payloadRetrieved = true;
 	}
 
@@ -240,5 +279,20 @@ public class Level extends GraphicsPane implements ActionListener {
 			stackBricks[i] = new GButton(String.valueOf(i + 1), i * brickSize, 0.0, brickSize, brickSize,
 					Color.DARK_GRAY);
 		}
+	}
+	
+	// check if this is the first level
+	public boolean isFirst() {
+		return first;
+	}
+	
+	// check if this is the last level
+	public boolean isLast() {
+		return last;
+	}
+	
+	// change the dialogue of the level
+	public void setDialogue(String dialogue) {
+		dialogueBox.setLabel(dialogue);
 	}
 }

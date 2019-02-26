@@ -34,7 +34,7 @@ public class MainApplication extends GraphicsApplication {
 	 * CONSTRUCTOR
 	 *************/
 	public void run() {
-		levels = new Level[MAX_LEVELS];
+		//levels = new Level[MAX_LEVELS];
 		introPane = new IntroPane(this);
 		currentIndex = 0;
 
@@ -79,17 +79,18 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	// initialize the array of levels.
-	public void initLevelArray() {
+	public void initLevelArray(int factorial) {
+		levels = new Level[factorial];
 		Level prev = null;
 		Level curr = null;
 		Level next = null;
-		for (int i = 0; i < MAX_LEVELS; i++) {
+		for (int i = 0; i < factorial; i++) {
 			if (i == 0) {
-				levels[i] = new Level(this, "first", i + 1);
-			} else if (i == MAX_LEVELS - 1) {
-				levels[i] = new Level(this, "last", i + 1);
+				levels[i] = new Level(this, "first", i + 1,factorial);
+			} else if (i == factorial - 1) {
+				levels[i] = new Level(this, "last", i + 1,factorial);
 			} else {
-				levels[i] = new Level(this, "mid", i + 1);
+				levels[i] = new Level(this, "mid", i + 1,factorial);
 			}
 			next = levels[i];
 
@@ -108,8 +109,8 @@ public class MainApplication extends GraphicsApplication {
 	}
 
 	// switch screen to the first level
-	public void switchToLevelOne() {
-		initLevelArray();
+	public void switchToLevelOne(int factorial) {
+		initLevelArray(factorial);
 		levels[currentIndex].startTimer();
 		switchToScreen(levels[currentIndex]);
 	}

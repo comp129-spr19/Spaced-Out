@@ -79,15 +79,15 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 				int factorial;	
 				
 				do {
-					input = JOptionPane.showInputDialog("Please input a number from 1-4 to use as your factorial for this game:");
+					input = JOptionPane.showInputDialog("Please input a number from 2-5 to use as your factorial for this game:");
 					try {
 						factorial = Integer.parseInt(input);
 				    } catch (NumberFormatException | NullPointerException ex) {
 				        factorial = -1;
 				    }
-				} while (factorial <= 0 || factorial > 4);
+				} while (factorial <= 1 || factorial > 5);
 
-				program.switchToLevelOne();
+				program.switchToLevelOne(factorial);
 			}
 		}		
 	}	

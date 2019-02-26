@@ -1,6 +1,7 @@
 package game;
 
 import acm.graphics.*;
+import starter.AudioPlayer;
 import starter.GraphicsPane;
 import starter.Level;
 import starter.MainApplication;
@@ -47,6 +48,15 @@ public final class CollisionChecker {
 			// if the payload and player collide, remove the payload
 			if (playerPayloadCollision(player.getImage(),payload.getImage())) {
 				level.removePayload();
+			}
+		}
+		
+		// give error message and play error sound when trying to retrieve wrong payload
+		if (next != null && !(next.payloadRetrieved())) {
+			if (playerPayloadCollision(player.getImage(),payload.getImage())) {
+				
+			AudioPlayer.getInstance().playSound("sounds", "error.wav");
+			level.setDialogue("Cannot pickup current payload without payloads from lower dimensions!");
 			}
 		}
 	}
