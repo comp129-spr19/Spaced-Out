@@ -49,6 +49,14 @@ public class Level extends GraphicsPane implements ActionListener {
 	private GRect topMatte, bottomMatte;
 	private GLabel dialogueBox;
 	private boolean first, last = false;
+	
+	// dialogue
+	
+	private static final String BASE_DIMENSION_DIALOGUE = "YOU ARE AT THE BASE DIMENSION, RETRIEVE THE FIRST ROBOT!";
+	private static final String RET_FINAL_ROB = "RETRIEVE THE FINAL ROBOT!";
+	private static final String RETRIEVE_ROB = "OBJETIVE: Retrive this dimension's robot!";
+	private static final String MISSION_COMPLETE = "MISSION COMPLETE: SUCCESSFULLY RETRIEVED ALL THE ROBOTS";
+	private static final String NEW_OBJ = "OBJECTIVE: Retrieve the robot from the previous dimension!";
 	//private GLabel currentPower;
 
 	// creates a new level. Differentiates between first and last level
@@ -211,7 +219,7 @@ public class Level extends GraphicsPane implements ActionListener {
 			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
 					MainApplication.centerHeight(next.getPlayer().getHeight()));
 			if(next.isLast()) {
-				next.setDialogue("YOU ARE AT THE BASE DIMENSION, RETRIEVE THE FIRST ROBOT!");
+				next.setDialogue(BASE_DIMENSION_DIALOGUE);
 			}
 
 		} else {
@@ -219,9 +227,9 @@ public class Level extends GraphicsPane implements ActionListener {
 			prev.getPlayer().respawnTo(SPAWN_CHAR_RIGHT_PORTAL_X,
 					MainApplication.centerHeight(prev.getPlayer().getHeight()));
 			if (prev.isFirst()) {
-				prev.setDialogue("RETRIEVE THE FINAL ROBOT!");
+				prev.setDialogue(RET_FINAL_ROB);
 			} else {
-				prev.setDialogue("OBJETIVE: Retrive this dimension's robot!");
+				prev.setDialogue(RETRIEVE_ROB);
 			}
 		}
 		program.switchLevel(movingRight);
@@ -240,11 +248,11 @@ public class Level extends GraphicsPane implements ActionListener {
 		AudioPlayer.getInstance().playSound("sounds", "r2d2.mp3", false);
 		player.addPayload(payload);
 		if (isFirst()) {
-			dialogueBox.setLabel("MISSION COMPLETE: SUCCESSFULLY RETRIEVED ALL THE ROBOTS");
+			dialogueBox.setLabel(MISSION_COMPLETE);
 			AudioPlayer.getInstance().stopSound("sounds", "LevelMusic.mp3");
 			AudioPlayer.getInstance().playSound("sounds", "game_complete.mp3",false);
 		} else {
-		dialogueBox.setLabel("OBJECTIVE: Retrieve the robot from the previous dimension!");
+		dialogueBox.setLabel(NEW_OBJ);
 		}
 		payloadRetrieved = true;
 	}
