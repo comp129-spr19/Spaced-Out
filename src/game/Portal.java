@@ -23,11 +23,11 @@ public class Portal {
 	// if specified will create a right portal, otherwise will just create a left portal
 	public Portal(String portalType) {
 		if (portalType.equals("right")) {
-		image = new GImage("BlackHolePortal.gif");
+		image = new GImage("ActivePortal_FunctionCall.gif");
 		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
 		image.setLocation(PORTAL_RIGHT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
 		} else if (portalType.equals("left")) {
-		image = new GImage("BlackHolePortal.gif");
+		image = new GImage("Portal.gif");
 		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
 		image.setLocation(PORTAL_LEFT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
 		}
