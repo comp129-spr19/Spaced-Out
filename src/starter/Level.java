@@ -29,6 +29,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	public static final int SPAWN_CHAR_LEFT_PORTAL_X = 100;
 	public static final int SPAWN_CHAR_RIGHT_PORTAL_X = 700;
 	public static final int TIMER = 100;
+	public static final int END_GAME_TIMER = 3000;
 	
 	public static final int ASPECT_RATIO = 6;
 	public static final int TBOX_SIZE_Y = MainApplication.WINDOW_HEIGHT/ASPECT_RATIO;
@@ -44,11 +45,14 @@ public class Level extends GraphicsPane implements ActionListener {
 	Player player;
 	Payload payload;
 	private Timer timer;
+	private Timer EndTimer;
 	private boolean payloadRetrieved;
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
+	private GImage endScreen = new GImage("hyperspace-optimized.gif",0,0);
 	private GRect topMatte, bottomMatte;
 	private GLabel dialogueBox;
 	private boolean first, last = false;
+	
 	
 	// dialogue
 	
@@ -66,6 +70,8 @@ public class Level extends GraphicsPane implements ActionListener {
 		program = app;
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		background.sendToBack();
+		endScreen.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
+		endScreen.sendToFront();
 
 		topMatte = new GRect(0, 0, app.WINDOW_WIDTH, app.WINDOW_HEIGHT / ASPECT_RATIO);
 		bottomMatte = new GRect(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO), app.WINDOW_WIDTH,
@@ -103,6 +109,8 @@ public class Level extends GraphicsPane implements ActionListener {
 		dialogueBox.setLocation(0, MainApplication.WINDOW_HEIGHT - dialogueBox.getHeight());
 		
 		timer = new Timer(TIMER, this);
+		
+		EndTimer = new Timer(END_GAME_TIMER,this);
 
 		payloadRetrieved = false;
 		// movement.start();
@@ -251,10 +259,21 @@ public class Level extends GraphicsPane implements ActionListener {
 			dialogueBox.setLabel(MISSION_COMPLETE);
 			AudioPlayer.getInstance().stopSound("sounds", "LevelMusic.mp3");
 			AudioPlayer.getInstance().playSound("sounds", "game_complete.mp3",false);
+			switchToEndScreen();
+			
 		} else {
 		dialogueBox.setLabel(NEW_OBJ);
 		}
 		payloadRetrieved = true;
+	}
+	
+	//methods to switch to the end screen without adding a new pane
+	private void switchToEndScreen() {
+		EndTimer.start();
+		program.removeAll();
+		program.add(endScreen);
+		AudioPlayer.getInstance().playSound("sounds", "HyperSpaceSound.mp3");
+		
 	}
 
 	// return the next level
