@@ -6,38 +6,56 @@ import acm.graphics.GImage;
 import acm.graphics.GOval;
 import starter.MainApplication;
 
-// this class represents a portal object in the game
-public class Portal {
+/*********************************************
+ * @authors Danilo, Bette, David, Ivan, Steven
+ *********************************************/
 
+public class Portal {
+	/***********
+	 * VARIABLES
+	 ***********/
 	// DIMENSIONS AND COORDINATES FOR THE PORTAL
 	public static final int PORTAL_HEIGHT = 150;
 	public static final int PORTAL_WIDTH = 20;
 	public static final int PORTAL_LEFT_START_W = 100;
 	public static final int PORTAL_RIGHT_START_W = 700;
 	
-	
-	// private variables
-	
+	/* PRIVATE VARIABLES */
 	private GImage image;
 	
-	// if specified will create a right portal, otherwise will just create a left portal
+	/*************
+	 * CONSTRUCTOR
+	 *************/
 	public Portal(String portalType) {
+		
+		/* PORTAL CREATION LOGIC:
+		 *  -If specified will create a right portal
+		 *  -Else will just create a left portal 
+		 */
 		if (portalType.equals("right")) {
-		image = new GImage("ActivePortal_FunctionCall.gif");
-		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
-		image.setLocation(PORTAL_RIGHT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
-		} else if (portalType.equals("left")) {
-		image = new GImage("Portal.gif");
-		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
-		image.setLocation(PORTAL_LEFT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
+			image = new GImage("ActivePortal_FunctionCall.gif");
+			image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
+			image.setLocation(PORTAL_RIGHT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
+		} 
+		else if (portalType.equals("left")) {
+			image = new GImage("Portal.gif");
+			image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
+			image.setLocation(PORTAL_LEFT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
 		}
+		
 	}
 	
+	/***********************
+	 * SETTERS AND GETTERS *
+	 ***********************/
+	// Sets a new Portal image
+	public void setImage(GImage newImage) {
+		image = newImage;
+	}
+	
+	// Gets Portal image
 	public GImage getImage() {
 		return image;
 	}
 	
-	public void setImage(GImage newImage) {
-		image = newImage;
-	}
 }

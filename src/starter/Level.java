@@ -20,9 +20,9 @@ import utility.*;
  *********************************************/
 
 public class Level extends GraphicsPane implements ActionListener {
-	/***********
-	 * VARIABLES
-	 ***********/
+	/*************
+	 * VARIABLES *
+	 *************/
 	private MainApplication program;
 	
 	/* CONSTANTS */
@@ -58,9 +58,9 @@ public class Level extends GraphicsPane implements ActionListener {
 	Player player;
 	Portal portalLeft, portalRight;
 
-	/*************
-	 * CONSTRUCTOR
-	 *************/
+	/****************
+	 * CONSTRUCTORS *
+	 ****************/
 	public Level(MainApplication app, String levelType, int stack, int totalLevels) {
 		super();
 		program = app;
