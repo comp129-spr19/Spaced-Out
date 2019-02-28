@@ -36,7 +36,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	public static final int TIMER = 100;
 	
 	/* DIALOGUE*/
-	private static final String BASE_DIMENSION_DIALOGUE = "YOU ARE AT THE BASE DIMENSION, RETRIEVE THE FIRST ROBOT!";
+	private static final String BASE_DIMENSION_DIALOGUE = "YOU ARE AT THE HIGHEST DIMENSION, RETRIEVE THE FIRST ROBOT!";
 	private static final String MISSION_COMPLETE = "MISSION COMPLETE: SUCCESSFULLY RETRIEVED ALL THE ROBOTS";
 	private static final String NEW_OBJ = "OBJECTIVE: Retrieve the robot from the previous dimension!";
 	private static final String RET_FINAL_ROB = "RETRIEVE THE FINAL ROBOT!";
@@ -301,6 +301,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		if (isFirst()) {
 			dialogueBox.setLabel(MISSION_COMPLETE);
 			AudioPlayer.getInstance().stopSound("sounds", "LevelMusic.mp3");
+			//AudioPlayer.getInstance().stopSound("sounds", "r2d2.mp3");
 			AudioPlayer.getInstance().playSound("sounds", "game_complete.mp3",false);
 			switchToEndScreen();
 		// Displays next label	
@@ -324,7 +325,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		// Array of numbered blocks, also formats them
 		for (int i = 0; i < callStack; i++) {
 			stackBricks[i] = new GButton(String.valueOf(i + 1), i * brickSize, 0.0, brickSize, brickSize,
-					Color.DARK_GRAY);
+					levelColor(i + 1));
 		}
 	}
 		
@@ -335,12 +336,13 @@ public class Level extends GraphicsPane implements ActionListener {
 	
 	
 	// returns the redness of the current level
-	public Color levelColor() {
+	public Color levelColor(int levelIndex) {
 		
 		// value for which we'll multiply the redness of each level
-		int redIncrementValue = 51;
-		
-		return new Color(redIncrementValue * this.callStack,0,0);
+		int blueIncrementValue = 51;
+		int redVal = 120;
+		int greenVal = 0;
+		return new Color(redVal,greenVal,blueIncrementValue * levelIndex);
 	}
 	
 	// given a GObject, change its color. 
