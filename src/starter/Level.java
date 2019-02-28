@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
+import acm.graphics.GObject;
 import acm.graphics.GRect;
 import game.CollisionChecker;
 import game.Payload;
@@ -330,5 +331,20 @@ public class Level extends GraphicsPane implements ActionListener {
 	// Dialogue changer
 	public void setDialogue(String dialogue) {
 		dialogueBox.setLabel(dialogue);
+	}
+	
+	
+	// returns the redness of the current level
+	public Color levelColor() {
+		
+		// value for which we'll multiply the redness of each level
+		int redIncrementValue = 51;
+		
+		return new Color(redIncrementValue * this.callStack,0,0);
+	}
+	
+	// given a GObject, change its color. 
+	public void setObjectColor (GObject object, Color color) {
+		object.setColor(color);
 	}
 }
