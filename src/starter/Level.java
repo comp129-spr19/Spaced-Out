@@ -338,10 +338,13 @@ public class Level extends GraphicsPane implements ActionListener {
 	// returns the redness of the current level
 	public Color levelColor(int levelIndex) {
 		
-		// value for which we'll multiply the redness of each level
+		// value for which we'll multiply the blueness of each level
 		int blueIncrementValue = 51;
+		
+		// play around with these values to get a desirable color
 		int redVal = 120;
 		int greenVal = 0;
+		
 		return new Color(redVal,greenVal,blueIncrementValue * levelIndex);
 	}
 	
