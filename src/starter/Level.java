@@ -184,7 +184,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		if (portalRight != null) {
 			program.add(portalRight.getImage());
 		}
-		if (!(payloadRetrieved)) {
+		if (next == null || next.payloadRetrieved) {
 			program.add(payload.getImage());
 		}
 
@@ -335,7 +335,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	}
 	
 	
-	// returns the redness of the current level
+	// returns the color of the current level
 	public Color levelColor(int levelNumber) {
 		
 		// value for which we'll multiply the blueness of each level
