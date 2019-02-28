@@ -5,80 +5,70 @@ package starter;
  *********************************************/
 
 public class MainApplication extends GraphicsApplication {
-	/******************
-	 * GLOBAL VARIABLES
-	 ******************/
-
-	public static final int MAX_LEVELS = 3;
-
-	public static final int WINDOW_WIDTH = 800;
+	/*************
+	 * VARIABLES *
+	 *************/
+	/* CONSTANTS */
 	public static final int WINDOW_HEIGHT = 600;
+	public static final int WINDOW_WIDTH = 800;
 	public static final String MUSIC_FOLDER = "sounds";
-	private static final String[] SOUND_FILES = { "r2d2.mp3", "somethinlikethis.mp3" };
-
-	private Level[] levels;
+	
+	/* PRIVATE VARIABLES */
+	private int currentIndex;// keeps track of the current level we are on.
 	private IntroPane introPane;
-	private int count;
+	private Level[] levels;
+	
 
-	// keeps track of the current level we are on.
-	private int currentIndex;
-
-	/***************
-	 * SCREEN SET UP
-	 ***************/
+	/*****************
+	 * SCREEN SET UP *
+	 *****************/
 	public void init() {
 		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	}
 
-	/*************
-	 * CONSTRUCTOR
-	 *************/
+	/***************
+	 * CONSTRUCTOR *
+	 ***************/
 	public void run() {
-		//levels = new Level[MAX_LEVELS];
 		introPane = new IntroPane(this);
 		currentIndex = 0;
-
 		switchToScreen(introPane);
 	}
 
-	/*****************************
-	 * WINDOW SWITCHING AND HIDING
-	 *****************************/
+	/*******************************
+	 * WINDOW SWITCHING AND HIDING *
+	 *******************************/
 
-	// if movingRight true, we move to the next possible screen,
-	// otherwise we move left.
+	// If movingRight true, we move to the next possible screen	
 	public void switchLevel(boolean movingRight) {
 		if (movingRight) {
 			currentIndex++;
 			levels[currentIndex].startTimer();
 			switchToScreen(levels[currentIndex]);
+			// otherwise we move left.	
 		} else {
 			currentIndex--;
 			levels[currentIndex].startTimer();
 			switchToScreen(levels[currentIndex]);
 		}
 	}
-	/*
-	 * public void switchToMenu() { count++; levelOne.startTimer();
-	 * switchToScreen(levelOne); }
-	 * 
-	 * public void switchToSome() { levelTwo.startTimer(); switchToScreen(levelTwo);
-	 * }
-	 */
-
-	/****************
-	 * HELPER METHODS
-	 ****************/
-	private void playRandomSound() {
-		AudioPlayer audio = AudioPlayer.getInstance();
-		audio.playSound(MUSIC_FOLDER, SOUND_FILES[count % SOUND_FILES.length]);
+	
+	// Switch screen to the first level
+	public void switchToLevelOne(int factorial) {
+		initLevelArray(factorial);
+		levels[currentIndex].startTimer();
+		switchToScreen(levels[currentIndex]);
 	}
 
+	/******************
+	 * HELPER METHODS *
+	 ******************/
+	// Calculates the middle height of the window
 	public static int centerHeight(int objectHeight) {
 		return (WINDOW_HEIGHT / 2) - (objectHeight / 2);
 	}
 
-	// initialize the array of levels.
+	// Initializes the array of levels
 	public void initLevelArray(int factorial) {
 		levels = new Level[factorial];
 		Level prev = null;
@@ -101,17 +91,8 @@ public class MainApplication extends GraphicsApplication {
 
 			prev = curr;
 			curr = next;
-
 		}
-
 		curr.setPrev(prev);
 		curr.setNext(null);
-	}
-
-	// switch screen to the first level
-	public void switchToLevelOne(int factorial) {
-		initLevelArray(factorial);
-		levels[currentIndex].startTimer();
-		switchToScreen(levels[currentIndex]);
 	}
 }

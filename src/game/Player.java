@@ -10,7 +10,7 @@ import utility.CollisionHandler;
 public class Player {
 	public static final int PLAYER_SIZE = 50;
 	public static final int PLAYER_START_W = 20;
-	public static final int VELOCITY = 7;
+	public static final int VELOCITY = 10;
 	public static final double TAILING_GAP = 10;
 
 	private ArrayList<Payload> collectedPayload;
