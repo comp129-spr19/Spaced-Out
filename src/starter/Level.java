@@ -51,6 +51,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GImage endScreen = new GImage("hyperspace-optimized.gif", 0, 0);
 	private GLabel dialogueBox;
+	private GParagraph psuedocode;
 	private GRect topMatte, bottomMatte;
 	private boolean first, last = false;
 	private boolean payloadRetrieved;
@@ -77,7 +78,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		background.sendBackward();
 		bottomMatte = new GRect(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO), app.WINDOW_WIDTH,
-				app.WINDOW_HEIGHT / ASPECT_RATIO);
+				app.WINDOW_HEIGHT / ASPECT_RATIO + app.WINDOW_EXTENSION);
 		topMatte = new GRect(0, 0, app.WINDOW_WIDTH, app.WINDOW_HEIGHT / ASPECT_RATIO);
 		formatMatte(topMatte, stack);
 		formatMatte(bottomMatte, stack);
@@ -115,6 +116,14 @@ public class Level extends GraphicsPane implements ActionListener {
 
 		/* BOOLEAN INITIALIZATION */
 		payloadRetrieved = false;
+
+		psuedocode = new GParagraph(
+				"PurpleRobot collectPurpleRobot(Dimension) {\n" + "    if (BasePurple >= CurrentDimensionColor) {\n"
+						+ "        return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);\n" + "    } else {\n"
+						+ "        return (ThisRobot);\n" + "    }\n" + "}",
+				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
+		psuedocode.setFont("Arial-26");
+
 		isMovingLeft = false;
 	}
 
@@ -125,8 +134,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// Key Press Left
-		if (e.getKeyCode() == KeyEvent.VK_LEFT
-				&& (player.getImage().getX() - 1 >= 0)) {
+		if (e.getKeyCode() == KeyEvent.VK_LEFT && (player.getImage().getX() - 1 >= 0)) {
 			isMovingLeft = true;
 			player.getImage().setImage("LeftShipStationary.png");
 			player.move(-1, 0);
@@ -143,35 +151,31 @@ public class Level extends GraphicsPane implements ActionListener {
 				&& (player.getImage().getY() - 1 >= (topMatte.getY() + topMatte.getHeight()))) {
 			if (isMovingLeft) {
 				player.getImage().setImage("leftfacing_movingup.png");
-			}
-			else {
+			} else {
 				player.getImage().setImage("frontfacing_movingup.png");
 			}
 			player.move(0, -1);
-			
+
 		}
 		// Key Press Down
-		if (e.getKeyCode() == KeyEvent.VK_DOWN
-				&& ((player.getImage().getY() + player.getImage().getHeight())
-						+ 1 <= (MainApplication.WINDOW_HEIGHT - bottomMatte.getHeight()))) {
+		if (e.getKeyCode() == KeyEvent.VK_DOWN && ((player.getImage().getY() + player.getImage().getHeight())
+				+ 1 <= (MainApplication.WINDOW_HEIGHT - (MainApplication.WINDOW_HEIGHT / ASPECT_RATIO)))) {
 			if (isMovingLeft) {
 				player.getImage().setImage("leftfacing_movingdown.png");
-			}
-			else {
+			} else {
 				player.getImage().setImage("frontfacing_movingdown.png");
 			}
 			player.move(0, 1);
 		}
-	}	
-	
+	}
+
 	@Override
-	public void keyReleased(KeyEvent e) {		
+	public void keyReleased(KeyEvent e) {
 		// Key Released Up Or Down
 		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
 			if (isMovingLeft) {
 				player.getImage().setImage("LeftShipStationary.png");
-			}
-			else {
+			} else {
 				player.getImage().setImage("FrontShipStationary.png");
 			}
 		}
@@ -222,6 +226,8 @@ public class Level extends GraphicsPane implements ActionListener {
 
 		ArrayList<Payload> collectedPayload = player.getPayloads();
 
+		program.add(psuedocode);
+
 		for (int i = 0; i < collectedPayload.size(); i++) {
 			program.add(collectedPayload.get(i).getImage());
 		}
@@ -242,31 +248,29 @@ public class Level extends GraphicsPane implements ActionListener {
 		timer.stop();
 		// switch screens
 		if (movingRight) {
-			
-			
+
 			next.setPlayer(this.player);
 			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
 					MainApplication.centerHeight(next.getPlayer().getHeight()));
-			
+
 			next.changeLeftPortal(false);
-		
-			
+
 			if (next.isLast()) {
 				next.setDialogue(BASE_DIMENSION_DIALOGUE);
 			}
 
 		} else {
-			
+
 			prev.setPlayer(this.player);
 			prev.getPlayer().respawnTo(SPAWN_CHAR_RIGHT_PORTAL_X,
 					MainApplication.centerHeight(prev.getPlayer().getHeight()));
-			
-			//prev.changeLeftPortal(true);
+
+			// prev.changeLeftPortal(true);
 			prev.changeRightPortal(false);
-			
+
 			if (prev.isFirst()) {
 				prev.setDialogue(RET_FINAL_ROB);
-			
+
 			} else {
 				prev.setDialogue(RETRIEVE_ROB);
 			}
@@ -399,17 +403,17 @@ public class Level extends GraphicsPane implements ActionListener {
 	public void setObjectColor(GObject object, Color color) {
 		object.setColor(color);
 	}
-	
+
 	public void changeLeftPortal(boolean toActive) {
 		if (portalLeft != null) {
-			if ( toActive) {
+			if (toActive) {
 				portalLeft.setImage("Portal.gif");
 			} else {
 				portalLeft.setImage("PortalStill.png");
 			}
 		}
 	}
-	
+
 	public void changeRightPortal(boolean toActive) {
 		if (portalRight != null) {
 			if (toActive) {
@@ -419,5 +423,5 @@ public class Level extends GraphicsPane implements ActionListener {
 			}
 		}
 	}
-	
+
 }

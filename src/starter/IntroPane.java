@@ -4,13 +4,15 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
+
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
-import javax.swing.JOptionPane;
 
 public class IntroPane extends GraphicsPane implements ActionListener {
-	
+
 	private static final int INTRO_DURATION = 17; // duration of intro in seconds
 	private static final int SPLASHSCREEN_DURATION = 5; // duration of splashscreen in seconds
 	private static final int TIMER_TICK_INTRO = 1050; // time in milliseconds between timer tick events
@@ -22,7 +24,8 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	private AudioPlayer introSound, splashScreenSound; // variables for intro sounds
 	private Timer endIntro, endSplashScreen; // timers for intro screens
 	private int introTime, splashScreenTime; // time counters for timers
-	private GLabel pressEnter;	
+	private GLabel pressEnter;
+	private GLabel credits;
 
 	// Intro screen constructor
 	public IntroPane(MainApplication app) {
@@ -42,7 +45,9 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		endSplashScreen = new Timer(TIMER_TICK_SPLASH, this);
 		introTime = 0;
 		splashScreenTime = 0;
-	}	
+		credits = new GLabel("Created By: DIBS");
+		// credits.;
+	}
 
 	@Override
 	public void showContents() {
@@ -61,38 +66,38 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if (e.getSource() == endIntro) {
-			
+
 			introTime++;
-			
+
 			if (introTime == INTRO_DURATION) {
 				switchIntroScreens();
 			}
-		}
-		else {
-			
+		} else {
+
 			splashScreenTime++;
-			
+
 			if (splashScreenTime == SPLASHSCREEN_DURATION) {
 				String input;
-				int factorial;	
-				
+				int factorial;
+
 				do {
-					input = JOptionPane.showInputDialog("Please input a number from 2-5 to use as your factorial for this game:");
+					input = JOptionPane
+							.showInputDialog("Please input a number from 2-5 to use as your factorial for this game:");
 					try {
 						factorial = Integer.parseInt(input);
-				    } catch (NumberFormatException | NullPointerException ex) {
-				        factorial = -1;
-				    }
+					} catch (NumberFormatException | NullPointerException ex) {
+						factorial = -1;
+					}
 				} while (factorial <= 1 || factorial > 5);
 
 				program.switchToLevelOne(factorial);
 			}
-		}		
-	}	
-	
-	// This is supposed to switch to the splash screen, 
+		}
+	}
+
+	// This is supposed to switch to the splash screen,
 	// but it doesn't currently work
 	public void keyPressed(KeyEvent e) {
 		int keyEvent = e.getKeyCode();
@@ -100,11 +105,10 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		case KeyEvent.VK_ENTER:
 			switchIntroScreens();
 			break;
-		}		
+		}
 	}
 
-	
-	// Refactored function to switch from the intro to 
+	// Refactored function to switch from the intro to
 	// the splash screen
 	private void switchIntroScreens() {
 		program.remove(introVideo);

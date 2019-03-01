@@ -11,19 +11,19 @@ public class MainApplication extends GraphicsApplication {
 	/* CONSTANTS */
 	public static final int WINDOW_HEIGHT = 600;
 	public static final int WINDOW_WIDTH = 800;
+	public static final int WINDOW_EXTENSION = 140;
 	public static final String MUSIC_FOLDER = "sounds";
-	
+
 	/* PRIVATE VARIABLES */
 	private int currentIndex;// keeps track of the current level we are on.
 	private IntroPane introPane;
 	private Level[] levels;
-	
 
 	/*****************
 	 * SCREEN SET UP *
 	 *****************/
 	public void init() {
-		setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		setSize(WINDOW_WIDTH, WINDOW_HEIGHT + WINDOW_EXTENSION);
 	}
 
 	/***************
@@ -39,20 +39,20 @@ public class MainApplication extends GraphicsApplication {
 	 * WINDOW SWITCHING AND HIDING *
 	 *******************************/
 
-	// If movingRight true, we move to the next possible screen	
+	// If movingRight true, we move to the next possible screen
 	public void switchLevel(boolean movingRight) {
 		if (movingRight) {
 			currentIndex++;
 			levels[currentIndex].startTimer();
 			switchToScreen(levels[currentIndex]);
-			// otherwise we move left.	
+			// otherwise we move left.
 		} else {
 			currentIndex--;
 			levels[currentIndex].startTimer();
 			switchToScreen(levels[currentIndex]);
 		}
 	}
-	
+
 	// Switch screen to the first level
 	public void switchToLevelOne(int factorial) {
 		initLevelArray(factorial);
@@ -76,11 +76,11 @@ public class MainApplication extends GraphicsApplication {
 		Level next = null;
 		for (int i = 0; i < factorial; i++) {
 			if (i == 0) {
-				levels[i] = new Level(this, "first", i + 1,factorial);
+				levels[i] = new Level(this, "first", i + 1, factorial);
 			} else if (i == factorial - 1) {
-				levels[i] = new Level(this, "last", i + 1,factorial);
+				levels[i] = new Level(this, "last", i + 1, factorial);
 			} else {
-				levels[i] = new Level(this, "mid", i + 1,factorial);
+				levels[i] = new Level(this, "mid", i + 1, factorial);
 			}
 			next = levels[i];
 
