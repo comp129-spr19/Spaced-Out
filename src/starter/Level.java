@@ -1,6 +1,7 @@
 package starter;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
 import game.CollisionChecker;
@@ -42,6 +44,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	private GButton[] stackBricks;
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GImage endScreen = new GImage("hyperspace-optimized.gif", 0, 0);
+	private GLabel portalLabel = new GLabel("collectPurpleRobot(Dimension)", 0, 0);
 	private GParagraph psuedocode;
 	private GRect topMatte, bottomMatte;
 	private boolean first, last = false;
@@ -78,7 +81,9 @@ public class Level extends GraphicsPane implements ActionListener {
 				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
 		psuedocode.setColor(Color.WHITE);
 		psuedocode.setFont("Arial-26");
-
+		portalLabel.setColor(Color.WHITE);
+		portalLabel.setFont(Font.SANS_SERIF);
+		portalLabel.setLocation(app.WINDOW_WIDTH - portalLabel.getWidth(), app.WINDOW_HEIGHT * .65);
 		/* PORTAL SET UP */
 		this.callStack = stack;
 		if (levelType.equals("first")) {
@@ -190,6 +195,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(topMatte);
 		program.add(bottomMatte);
 		program.add(stackLabel);
+		program.add(portalLabel);
 		for (int i = 0; i < callStack; i++) {
 			program.add(stackBricks[i]);
 		}
@@ -236,7 +242,6 @@ public class Level extends GraphicsPane implements ActionListener {
 			next.setPlayer(this.player);
 			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
 					MainApplication.centerHeight(next.getPlayer().getHeight()));
-
 			next.changeLeftPortal(false);
 
 		} else {
@@ -384,6 +389,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		if (portalRight != null) {
 			if (toActive) {
 				portalRight.setImage("Portal.gif");
+				program.add(portalLabel);
 			} else {
 				portalRight.setImage("PortalStill.png");
 			}
