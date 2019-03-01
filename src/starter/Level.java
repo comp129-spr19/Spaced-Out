@@ -61,13 +61,9 @@ public class Level extends GraphicsPane implements ActionListener {
 	public Level(MainApplication app, String levelType, int stack, int totalLevels) {
 		super();
 		program = app;
-		/*
-		 * GRAPHICS INITIALIZATION SECTION - AND STACK ORDER 1: Background -> bottom of
-		 * stack | send backward 2: Matte | send to back 3: Player | send to front 4:
-		 * Payload | send to front 5: Portals | send forward 6: Dialogue Box -> top of
-		 * the stack | send forward 7: End Screen | removeAll then add
-		 */
-		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
+	
+		/* GRAPHICS INITIALIZATION SECTION */
+		background.setSize(app.WINDOW_WIDTH, app.WINDOW_HEIGHT);
 		background.sendBackward();
 		bottomMatte = new GRect(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO), app.WINDOW_WIDTH,
 				app.WINDOW_HEIGHT / ASPECT_RATIO + app.WINDOW_EXTENSION);
@@ -75,8 +71,15 @@ public class Level extends GraphicsPane implements ActionListener {
 		formatMatte(topMatte, stack);
 		formatMatte(bottomMatte, stack);
 		player = new Player();
-		endScreen.setSize(app.WINDOW_WIDTH, app.WINDOW_HEIGHT);
-
+		endScreen.setSize(app.WINDOW_WIDTH, app.WINDOW_HEIGHT + app.WINDOW_EXTENSION);
+		psuedocode = new GParagraph(
+				"PurpleRobot collectPurpleRobot(Dimension) {\n" + "    if (BasePurple >= CurrentDimensionColor) {\n"
+						+ "        return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);\n" + "    } else {\n"
+						+ "        return (ThisRobot);\n" + "    }\n" + "}",
+				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
+		psuedocode.setColor(Color.WHITE);
+		psuedocode.setFont("Arial-26");
+		
 		/* PORTAL SET UP */
 		this.callStack = stack;
 		if (levelType.equals("first")) {
@@ -105,22 +108,13 @@ public class Level extends GraphicsPane implements ActionListener {
 
 		/* BOOLEAN INITIALIZATION */
 		payloadRetrieved = false;
-
-		psuedocode = new GParagraph(
-				"PurpleRobot collectPurpleRobot(Dimension) {\n" + "    if (BasePurple >= CurrentDimensionColor) {\n"
-						+ "        return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);\n" + "    } else {\n"
-						+ "        return (ThisRobot);\n" + "    }\n" + "}",
-				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
-		psuedocode.setColor(Color.WHITE);
-		psuedocode.setFont("Arial-26");
-
 		isMovingLeft = false;
 	}
 
 	/************************
 	 * KEY LISTENER METHODS *
 	 ************************/
-	// Logic provided for <-,^,->,v keys and AWDS keys when pressed
+	// Logic provided for <-,^,->,v keys when pressed
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// Key Press Left
@@ -393,5 +387,4 @@ public class Level extends GraphicsPane implements ActionListener {
 			}
 		}
 	}
-
 }

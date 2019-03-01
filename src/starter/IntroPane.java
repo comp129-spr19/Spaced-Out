@@ -37,8 +37,8 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		pressEnter.setLocation(WINDOW_WIDTH / 2 - pressEnter.getWidth() / 2, WINDOW_HEIGHT * .90);
 		pressEnter.setColor(Color.WHITE);
 		introSplashScreen = new GImage("spaceout_intro.gif");
-		introVideo.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		introSplashScreen.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		introVideo.setSize(WINDOW_WIDTH, WINDOW_HEIGHT + MainApplication.WINDOW_EXTENSION);
+		introSplashScreen.setSize(WINDOW_WIDTH, WINDOW_HEIGHT + MainApplication.WINDOW_EXTENSION);
 		introSound = AudioPlayer.getInstance();
 		splashScreenSound = AudioPlayer.getInstance();
 		endIntro = new Timer(TIMER_TICK_INTRO, this);
