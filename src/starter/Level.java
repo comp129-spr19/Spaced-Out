@@ -176,6 +176,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		}
 
 		program.add(player.getImage());
+		player.move(0, 0);
 
 		AudioPlayer.getInstance().playSound("sounds", "LevelMusic.mp3", true);
 		if (portalLeft != null) {
