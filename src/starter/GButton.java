@@ -20,6 +20,7 @@ import acm.graphics.GRoundRect;
 
 public class GButton extends GCompound {
 	private GRoundRect rect;
+	private GRoundRect border;
 	private GLabel message;
 
 	public static final int BUFFER = 20;
@@ -39,6 +40,10 @@ public class GButton extends GCompound {
 		rect.setFilled(true);
 		rect.setFillColor(col);
 		add(rect);
+		border = new GRoundRect(0, 0, width, height);
+		border.setColor(new Color(0, 0, 0));
+		add(border);
+		border.sendToFront();
 		message = new GLabel(label);
 		sizeLabelFont(message, width - BUFFER, height - BUFFER);
 		double centerX = width / 2 - message.getWidth() / 2;
