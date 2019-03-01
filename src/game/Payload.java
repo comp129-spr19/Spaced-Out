@@ -9,23 +9,21 @@ public class Payload {
 	public static final int PAYLOAD_HEIGHT = 50;
 	public static final int PAYLOAD_WIDTH = 60;
 	public static final int PAYLOAD_START_W = 600;
-	public static final String IMAGE_FILENAME = "robot.gif";
 	
 	private Payload nextLoad;
-	private GImage image;
+	private Robot image;
 	
 
 	// Default Constructor
-	public Payload() {
-		this.image = new GImage(IMAGE_FILENAME, PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2);
-		image.setSize(PAYLOAD_WIDTH, PAYLOAD_HEIGHT);
+	public Payload(Color c) {
+		this.image = new Robot(PAYLOAD_START_W, MainApplication.centerHeight(PAYLOAD_HEIGHT)/2, PAYLOAD_WIDTH, PAYLOAD_HEIGHT, c);
 		this.nextLoad = null;
 	}
 
 	// Overloaded Constructor
-	public Payload(int startX, int startY, int payloadWidth, int payloadHeight) {
-		this.image = new GImage(IMAGE_FILENAME, startX, startY);
-		image.setSize(payloadWidth, payloadHeight);
+	public Payload(int startX, int startY, int payloadWidth, int payloadHeight, Color c) {
+		this.image = new Robot(startX, startY, payloadWidth, payloadHeight, c); //HEY THIS NEEDS TO BE CHANGED BEFORE YOU COMMIT
+		this.nextLoad = null;
 	}
 
 	// Moves GImage
@@ -36,11 +34,6 @@ public class Payload {
 			double nextY = CollisionHandler.getCenter(this.image).getY();
 			nextLoad.moveTo(nextX, nextY, dir, extra, gap);
 		}
-	}
-
-	// Sets payload image
-	public void setImage(GImage payload) {
-		this.image = payload;
 	}
 
 	// Returns payload image

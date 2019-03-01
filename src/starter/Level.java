@@ -81,7 +81,6 @@ public class Level extends GraphicsPane implements ActionListener {
 		formatMatte(topMatte);
 		formatMatte(bottomMatte);
 		player = new Player();
-		payload = new Payload();
 		dialogueBox = new GLabel(FileReader.readWholeFile("OBJECTIVE_ONE.txt")); // adding GLabels in the bottom
 		dialogueBox.setColor(Color.WHITE);
 		dialogueBox.setLocation(0, MainApplication.WINDOW_HEIGHT - dialogueBox.getHeight());
@@ -101,6 +100,7 @@ public class Level extends GraphicsPane implements ActionListener {
 			portalRight = new Portal("right"); // create right-most portal
 			portalLeft = new Portal("left"); // create left-most portal
 		}
+		payload = new Payload(levelColor(this.callStack));
 		
 		/* LEVEL POINTER  INTIALIZATION */
 		prev = null;
