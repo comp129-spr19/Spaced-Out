@@ -122,6 +122,7 @@ public class Level extends GraphicsPane implements ActionListener {
 						+ "        return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);\n" + "    } else {\n"
 						+ "        return (ThisRobot);\n" + "    }\n" + "}",
 				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
+		psuedocode.setColor(Color.WHITE);
 		psuedocode.setFont("Arial-26");
 
 		isMovingLeft = false;
