@@ -33,7 +33,7 @@ public class Portal {
 		 *  -Else will just create a left portal 
 		 */
 		if (portalType.equals("right")) {
-			image = new GImage("ActivePortal_FunctionCall.gif");
+			image = new GImage("Portal.gif");
 			image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
 			image.setLocation(PORTAL_RIGHT_START_W, MainApplication.WINDOW_HEIGHT / 2 - image.getHeight() / 2 );
 		} 
