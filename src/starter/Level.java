@@ -51,6 +51,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GImage endScreen = new GImage("hyperspace-optimized.gif", 0, 0);
 	private GLabel dialogueBox;
+	private GParagraph psuedocode;
 	private GRect topMatte, bottomMatte;
 	private boolean first, last = false;
 	private boolean payloadRetrieved;
@@ -76,7 +77,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		background.setSize(MainApplication.WINDOW_WIDTH, MainApplication.WINDOW_HEIGHT);
 		background.sendBackward();
 		bottomMatte = new GRect(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO), app.WINDOW_WIDTH,
-				app.WINDOW_HEIGHT / ASPECT_RATIO);
+				app.WINDOW_HEIGHT / ASPECT_RATIO + app.WINDOW_EXTENSION);
 		topMatte = new GRect(0, 0, app.WINDOW_WIDTH, app.WINDOW_HEIGHT / ASPECT_RATIO);
 		formatMatte(topMatte, stack);
 		formatMatte(bottomMatte, stack);
@@ -114,6 +115,15 @@ public class Level extends GraphicsPane implements ActionListener {
 
 		/* BOOLEAN INITIALIZATION */
 		payloadRetrieved = false;
+
+		psuedocode = new GParagraph(
+				"PurpleRobot collectPurpleRobot(Dimension) {\n" + "    if (BasePurple >= CurrentDimensionColor) {\n"
+						+ "        return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);\n" + "    } else {\n"
+						+ "        return (ThisRobot);\n" + "    }\n" + "}",
+				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
+		psuedocode.setFont("Arial-26");
+		// psuedocode.setLocation(0, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT /
+		// ASPECT_RATIO) + 28);
 	}
 
 	/************************
@@ -189,6 +199,8 @@ public class Level extends GraphicsPane implements ActionListener {
 		}
 
 		ArrayList<Payload> collectedPayload = player.getPayloads();
+
+		program.add(psuedocode);
 
 		for (int i = 0; i < collectedPayload.size(); i++) {
 			program.add(collectedPayload.get(i).getImage());
