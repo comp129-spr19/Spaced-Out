@@ -210,19 +210,31 @@ public class Level extends GraphicsPane implements ActionListener {
 		timer.stop();
 		// switch screens
 		if (movingRight) {
+			
+			
 			next.setPlayer(this.player);
 			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
 					MainApplication.centerHeight(next.getPlayer().getHeight()));
+			
+			next.changeLeftPortal(false);
+		
+			
 			if (next.isLast()) {
 				next.setDialogue(BASE_DIMENSION_DIALOGUE);
 			}
 
 		} else {
+			
 			prev.setPlayer(this.player);
 			prev.getPlayer().respawnTo(SPAWN_CHAR_RIGHT_PORTAL_X,
 					MainApplication.centerHeight(prev.getPlayer().getHeight()));
+			
+			//prev.changeLeftPortal(true);
+			prev.changeRightPortal(false);
+			
 			if (prev.isFirst()) {
 				prev.setDialogue(RET_FINAL_ROB);
+			
 			} else {
 				prev.setDialogue(RETRIEVE_ROB);
 			}
@@ -309,6 +321,7 @@ public class Level extends GraphicsPane implements ActionListener {
 			// Displays next label
 		} else {
 			dialogueBox.setLabel(NEW_OBJ);
+			changeLeftPortal(true);
 		}
 		// Turns Payload flag to true
 		payloadRetrieved = true;
@@ -354,4 +367,25 @@ public class Level extends GraphicsPane implements ActionListener {
 	public void setObjectColor(GObject object, Color color) {
 		object.setColor(color);
 	}
+	
+	public void changeLeftPortal(boolean toActive) {
+		if (portalLeft != null) {
+			if ( toActive) {
+				portalLeft.setImage("Portal.gif");
+			} else {
+				portalLeft.setImage("PortalStill.png");
+			}
+		}
+	}
+	
+	public void changeRightPortal(boolean toActive) {
+		if (portalRight != null) {
+			if (toActive) {
+				portalRight.setImage("Portal.gif");
+			} else {
+				portalRight.setImage("PortalStill.png");
+			}
+		}
+	}
+	
 }
