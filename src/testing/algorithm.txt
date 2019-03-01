@@ -1,0 +1,7 @@
+PurpleRobot collectPurpleRobot(Dimension){
+ 	if (BasePurple >= CurrentDimensionColor) {
+return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);
+ 	} else {
+      	return (ThisRobot);
+ 	}
+}
