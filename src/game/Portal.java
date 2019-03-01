@@ -49,8 +49,9 @@ public class Portal {
 	 * SETTERS AND GETTERS *
 	 ***********************/
 	// Sets a new Portal image
-	public void setImage(GImage newImage) {
-		image = newImage;
+	public void setImage(String newImage) {
+		image.setImage(newImage);
+		image.setSize(PORTAL_WIDTH, PORTAL_HEIGHT);
 	}
 	
 	// Gets Portal image
