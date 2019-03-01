@@ -56,7 +56,6 @@ public final class CollisionChecker {
 			if (playerPayloadCollision(player.getImage(),payload.getImage())) {
 				
 			AudioPlayer.getInstance().playSound("sounds", "error.wav");
-			level.setDialogue("Cannot pickup current payload without payloads from lower dimensions!");
 			}
 		}
 	}
