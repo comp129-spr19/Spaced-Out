@@ -25,7 +25,6 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 	private Timer endIntro, endSplashScreen; // timers for intro screens
 	private int introTime, splashScreenTime; // time counters for timers
 	private GLabel pressEnter;
-	private GLabel credits;
 
 	// Intro screen constructor
 	public IntroPane(MainApplication app) {
@@ -45,8 +44,6 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 		endSplashScreen = new Timer(TIMER_TICK_SPLASH, this);
 		introTime = 0;
 		splashScreenTime = 0;
-		credits = new GLabel("Created By: DIBS");
-		// credits.;
 	}
 
 	@Override

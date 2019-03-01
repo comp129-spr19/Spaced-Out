@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 import acm.graphics.GImage;
-import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
 import game.CollisionChecker;
 import game.Payload;
 import game.Player;
 import game.Portal;
-import utility.FileReader;
 
 /*********************************************
  * @authors Danilo, Bette, David, Ivan, Steven
@@ -40,6 +38,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	/* PRIVATE VARIABLES */
 	private int callStack;
 	private Timer timer;
+	private GButton stackLabel;
 	private GButton[] stackBricks;
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GImage endScreen = new GImage("hyperspace-optimized.gif", 0, 0);
@@ -61,7 +60,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	public Level(MainApplication app, String levelType, int stack, int totalLevels) {
 		super();
 		program = app;
-	
+
 		/* GRAPHICS INITIALIZATION SECTION */
 		background.setSize(app.WINDOW_WIDTH, app.WINDOW_HEIGHT);
 		background.sendBackward();
@@ -79,7 +78,7 @@ public class Level extends GraphicsPane implements ActionListener {
 				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
 		psuedocode.setColor(Color.WHITE);
 		psuedocode.setFont("Arial-26");
-		
+
 		/* PORTAL SET UP */
 		this.callStack = stack;
 		if (levelType.equals("first")) {
@@ -100,6 +99,8 @@ public class Level extends GraphicsPane implements ActionListener {
 		next = null;
 
 		/* NUMBER BLOCKS INITIAZLIZATION */
+		stackLabel = new GButton("Stack:", 0.0, 0.0, app.WINDOW_HEIGHT / ASPECT_RATIO, app.WINDOW_HEIGHT / ASPECT_RATIO,
+				levelColor(stack), Color.WHITE);
 		stackBricks = new GButton[stack];
 		initStackBricks();
 
@@ -188,6 +189,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(background);
 		program.add(topMatte);
 		program.add(bottomMatte);
+		program.add(stackLabel);
 		for (int i = 0; i < callStack; i++) {
 			program.add(stackBricks[i]);
 		}
@@ -345,8 +347,8 @@ public class Level extends GraphicsPane implements ActionListener {
 		double brickSize = MainApplication.WINDOW_HEIGHT / ASPECT_RATIO;
 		// Array of numbered blocks, also formats them
 		for (int i = 0; i < callStack; i++) {
-			stackBricks[i] = new GButton(String.valueOf(i + 1), i * brickSize, 0.0, brickSize, brickSize,
-					levelColor(i + 1));
+			stackBricks[i] = new GButton(String.valueOf(i + 1), (i + 1) * brickSize, 0.0, brickSize, brickSize,
+					levelColor(i + 1), Color.WHITE);
 		}
 	}
 

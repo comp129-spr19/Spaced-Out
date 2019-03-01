@@ -1,6 +1,5 @@
 package starter;
 
-
 /*
  * File: GButton.java
  * ------------------
@@ -45,6 +44,25 @@ public class GButton extends GCompound {
 		add(border);
 		border.sendToFront();
 		message = new GLabel(label);
+		sizeLabelFont(message, width - BUFFER, height - BUFFER);
+		double centerX = width / 2 - message.getWidth() / 2;
+		double centerY = height / 2 + message.getAscent() / 4;
+		add(message, centerX, centerY);
+	}
+
+	public GButton(String label, double x, double y, double width, double height, Color buttonCol, Color textCol) {
+		super();
+		setLocation(x, y);
+		rect = new GRoundRect(0, 0, width, height);
+		rect.setFilled(true);
+		rect.setFillColor(buttonCol);
+		add(rect);
+		border = new GRoundRect(0, 0, width, height);
+		border.setColor(new Color(0, 0, 0));
+		add(border);
+		border.sendToFront();
+		message = new GLabel(label);
+		message.setColor(textCol);
 		sizeLabelFont(message, width - BUFFER, height - BUFFER);
 		double centerX = width / 2 - message.getWidth() / 2;
 		double centerY = height / 2 + message.getAscent() / 4;
