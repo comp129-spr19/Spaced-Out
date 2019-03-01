@@ -54,6 +54,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	private GRect topMatte, bottomMatte;
 	private boolean first, last = false;
 	private boolean payloadRetrieved;
+	private boolean isMovingLeft;
 
 	/* CLASS VARIABLES */
 	Level prev, next; // pointers to the level before and after this level.
@@ -114,6 +115,7 @@ public class Level extends GraphicsPane implements ActionListener {
 
 		/* BOOLEAN INITIALIZATION */
 		payloadRetrieved = false;
+		isMovingLeft = false;
 	}
 
 	/************************
@@ -122,26 +124,56 @@ public class Level extends GraphicsPane implements ActionListener {
 	// Logic provided for <-,^,->,v keys and AWDS keys when pressed
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// Key Press Left or 'A'
-		if ((e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
+		// Key Press Left
+		if (e.getKeyCode() == KeyEvent.VK_LEFT
 				&& (player.getImage().getX() - 1 >= 0)) {
+			isMovingLeft = true;
+			player.getImage().setImage("LeftShipStationary.png");
 			player.move(-1, 0);
 		}
-		// Key Press Right or 'D'
-		if ((e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
+		// Key Press Right
+		if (e.getKeyCode() == KeyEvent.VK_RIGHT
 				&& ((player.getImage().getX() + player.getImage().getWidth()) + 1 <= MainApplication.WINDOW_WIDTH)) {
+			isMovingLeft = false;
+			player.getImage().setImage("FrontShipStationary.png");
 			player.move(1, 0);
 		}
-		// Key Press Up or 'W'
-		if ((e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
+		// Key Press Up
+		if (e.getKeyCode() == KeyEvent.VK_UP
 				&& (player.getImage().getY() - 1 >= (topMatte.getY() + topMatte.getHeight()))) {
+			if (isMovingLeft) {
+				player.getImage().setImage("leftfacing_movingup.png");
+			}
+			else {
+				player.getImage().setImage("frontfacing_movingup.png");
+			}
 			player.move(0, -1);
+			
 		}
-		// Key Press Down or 'S'
-		if ((e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
+		// Key Press Down
+		if (e.getKeyCode() == KeyEvent.VK_DOWN
 				&& ((player.getImage().getY() + player.getImage().getHeight())
 						+ 1 <= (MainApplication.WINDOW_HEIGHT - bottomMatte.getHeight()))) {
+			if (isMovingLeft) {
+				player.getImage().setImage("leftfacing_movingdown.png");
+			}
+			else {
+				player.getImage().setImage("frontfacing_movingdown.png");
+			}
 			player.move(0, 1);
+		}
+	}	
+	
+	@Override
+	public void keyReleased(KeyEvent e) {		
+		// Key Released Up Or Down
+		if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN) {
+			if (isMovingLeft) {
+				player.getImage().setImage("LeftShipStationary.png");
+			}
+			else {
+				player.getImage().setImage("FrontShipStationary.png");
+			}
 		}
 	}
 

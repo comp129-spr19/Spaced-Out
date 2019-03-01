@@ -45,14 +45,9 @@ public class Player {
 
 	/***********************
 	 * SETTERS AND GETTERS *
-	 ***********************/
-	// Sets player image
-	public void setImage(GObject character) {
-		this.image = (GImage) character;
-	}
-
+	 ***********************/	
 	// Gets player image
-	public GObject getImage() {
+	public GImage getImage() {
 		return this.image;
 	}
 	
