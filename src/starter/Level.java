@@ -195,7 +195,9 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(topMatte);
 		program.add(bottomMatte);
 		program.add(stackLabel);
-		program.add(portalLabel);
+		
+		
+		
 		for (int i = 0; i < callStack; i++) {
 			program.add(stackBricks[i]);
 		}
@@ -212,6 +214,9 @@ public class Level extends GraphicsPane implements ActionListener {
 		}
 		if (next == null || next.payloadRetrieved) {
 			program.add(payload.getImage());
+		} else {
+			// add portal label
+			program.add(portalLabel);
 		}
 
 		ArrayList<Payload> collectedPayload = player.getPayloads();
