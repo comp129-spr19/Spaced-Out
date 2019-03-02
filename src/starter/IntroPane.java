@@ -81,7 +81,7 @@ public class IntroPane extends GraphicsPane implements ActionListener {
 
 				do {
 					input = JOptionPane
-							.showInputDialog("Please input a number from 2-5 to use as your factorial for this game:");
+							.showInputDialog("Please enter the number of levels you would like to travel recursively (2-5):");
 					try {
 						factorial = Integer.parseInt(input);
 					} catch (NumberFormatException | NullPointerException ex) {
