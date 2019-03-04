@@ -1,6 +1,5 @@
 package starter;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -8,9 +7,11 @@ import java.util.List;
 
 import acm.graphics.GCompound;
 import acm.graphics.GLabel;
+import acm.graphics.GRect;
 
 public class GParagraph extends GCompound {
 	public static final String NEWLINE = "\n";
+	private GRect fnCall, rtnShort, rtnLong;
 	private double startX;
 	private double startY;
 	private String allText;
@@ -65,6 +66,25 @@ public class GParagraph extends GCompound {
 				labels.get(i).setLabel("");
 			} else {
 				labels.get(i).setLabel(textLines[i]);
+				if (textLines[i].contains("collectPurpleRobot(ThisDimension + 1)")) {
+					rtnLong = new GRect(labels.get(i).getX() + 53, labels.get(i).getY() - labels.get(i).getHeight() + 6,
+							labels.get(i).getWidth() - 53, labels.get(i).getHeight());
+					rtnLong.setFilled(true);
+					rtnLong.setFillColor(new Color(60, 40, 60));
+					rtnLong.setColor(new Color(60, 40, 60));
+					fnCall = new GRect(labels.get(i).getX() + 128, labels.get(i).getY() - labels.get(i).getHeight() + 6,
+							labels.get(i).getWidth() - 290, labels.get(i).getHeight());
+					fnCall.setFilled(true);
+					fnCall.setFillColor(new Color(60, 40, 60));
+					fnCall.setColor(new Color(60, 40, 60));
+				} else if (textLines[i].contains("return (ThisRobot)")) {
+					rtnShort = new GRect(labels.get(i).getX() + 53,
+							labels.get(i).getY() - labels.get(i).getHeight() + 6, labels.get(i).getWidth() - 53,
+							labels.get(i).getHeight());
+					rtnShort.setFilled(true);
+					rtnShort.setFillColor(new Color(60, 40, 60));
+					rtnShort.setColor(new Color(60, 40, 60));
+				}
 			}
 		}
 	}
@@ -86,5 +106,32 @@ public class GParagraph extends GCompound {
 
 	private String[] breakIntoLines(String label) {
 		return label.split(NEWLINE);
+	}
+
+	public void addFnCall() {
+		add(fnCall);
+		fnCall.sendToBack();
+	}
+
+	public void addRtnShort() {
+		add(rtnShort);
+		rtnShort.sendToBack();
+	}
+
+	public void addRtnLong() {
+		add(rtnLong);
+		rtnLong.sendToBack();
+	}
+
+	public void removeFnCall() {
+		remove(fnCall);
+	}
+
+	public void removeRtnShort() {
+		remove(rtnShort);
+	}
+
+	public void removeRtnLong() {
+		remove(rtnLong);
 	}
 }

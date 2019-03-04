@@ -44,7 +44,7 @@ public class Level extends GraphicsPane implements ActionListener {
 	private GButton[] stackBricks;
 	private GImage background = new GImage("r2l_fast.gif", 0, 0);
 	private GImage endScreen = new GImage("hyperspace-optimized.gif", 0, 0);
-	private GLabel portalLabel = new GLabel("collectPurpleRobot(Dimension)", 0, 0);
+	private GLabel portalLabel = new GLabel("collectPurpleRobot(Dimension + 1)", 0, 0);
 	private GParagraph psuedocode;
 	private GRect topMatte, bottomMatte;
 	private boolean first, last = false;
@@ -90,13 +90,16 @@ public class Level extends GraphicsPane implements ActionListener {
 			portalRight = new Portal("right");
 			portalLeft = null;
 			first = true;
+			psuedocode.addFnCall();
 		} else if (levelType.equals("last")) {
 			portalRight = null;
 			portalLeft = new Portal("left");
 			last = true;
+			psuedocode.addRtnShort();
 		} else {
 			portalRight = new Portal("right"); // create right-most portal
 			portalLeft = new Portal("left"); // create left-most portal
+			psuedocode.addFnCall();
 		}
 
 		payload = new Payload(levelColor(this.callStack));
@@ -195,9 +198,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(topMatte);
 		program.add(bottomMatte);
 		program.add(stackLabel);
-		
-		
-		
+
 		for (int i = 0; i < callStack; i++) {
 			program.add(stackBricks[i]);
 		}
@@ -211,12 +212,10 @@ public class Level extends GraphicsPane implements ActionListener {
 		}
 		if (portalRight != null) {
 			program.add(portalRight.getImage());
+			program.add(portalLabel);
 		}
 		if (next == null || next.payloadRetrieved) {
 			program.add(payload.getImage());
-		} else {
-			// add portal label
-			program.add(portalLabel);
 		}
 
 		ArrayList<Payload> collectedPayload = player.getPayloads();
@@ -225,6 +224,7 @@ public class Level extends GraphicsPane implements ActionListener {
 
 		for (int i = 0; i < collectedPayload.size(); i++) {
 			program.add(collectedPayload.get(i).getImage());
+			psuedocode.addRtnLong();
 		}
 	}
 
@@ -248,15 +248,14 @@ public class Level extends GraphicsPane implements ActionListener {
 			next.getPlayer().respawnTo(SPAWN_CHAR_LEFT_PORTAL_X,
 					MainApplication.centerHeight(next.getPlayer().getHeight()));
 			next.changeLeftPortal(false);
-
 		} else {
 
 			prev.setPlayer(this.player);
 			prev.getPlayer().respawnTo(SPAWN_CHAR_RIGHT_PORTAL_X,
 					MainApplication.centerHeight(prev.getPlayer().getHeight()));
-
 			// prev.changeLeftPortal(true);
 			prev.changeRightPortal(false);
+
 		}
 		program.switchLevel(movingRight);
 	}
