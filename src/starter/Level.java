@@ -50,7 +50,9 @@ public class Level extends GraphicsPane implements ActionListener {
 	private boolean first, last = false;
 	private boolean payloadRetrieved;
 	private boolean isMovingLeft;
-
+	private GButton basePurp;
+	private GButton currPurp;
+	
 	/* CLASS VARIABLES */
 	Level prev, next; // pointers to the level before and after this level.
 	Payload payload;
@@ -75,7 +77,7 @@ public class Level extends GraphicsPane implements ActionListener {
 		player = new Player();
 		endScreen.setSize(app.WINDOW_WIDTH, app.WINDOW_HEIGHT + app.WINDOW_EXTENSION);
 		psuedocode = new GParagraph(
-				"PurpleRobot collectPurpleRobot(Dimension) {\n" + "    if (BasePurple >= CurrentDimensionColor) {\n"
+				"PurpleRobot collectPurpleRobot(Dimension) {\n" + "    if (BasePurple > CurrentDimensionColor) {\n"
 						+ "        return (collectPurpleRobot(ThisDimension + 1) + ThisRobot);\n" + "    } else {\n"
 						+ "        return (ThisRobot);\n" + "    }\n" + "}",
 				15, app.WINDOW_HEIGHT - (app.WINDOW_HEIGHT / ASPECT_RATIO) + 35);
@@ -111,7 +113,11 @@ public class Level extends GraphicsPane implements ActionListener {
 				levelColor(stack), Color.WHITE);
 		stackBricks = new GButton[stack];
 		initStackBricks();
-
+		
+		/* GBUTTONS FOR BASE COLOR AND CURR COLOR */
+		
+		basePurp = new GButton("BASE PURPLE: "+(50*totalLevels),TBOX_SIZE_Y * 6,0,TBOX_SIZE_Y*2,TBOX_SIZE_Y/2, levelColor(stack), Color.WHITE);
+		currPurp = new GButton("CURRENT COLOR: "+(50*stack),TBOX_SIZE_Y * 6,TBOX_SIZE_Y/2,TBOX_SIZE_Y*2,TBOX_SIZE_Y/2, levelColor(stack), Color.WHITE);
 		/* TIMER */
 		timer = new Timer(TIMER, this);
 
@@ -198,7 +204,10 @@ public class Level extends GraphicsPane implements ActionListener {
 		program.add(topMatte);
 		program.add(bottomMatte);
 		program.add(stackLabel);
-
+		
+		program.add(basePurp);
+		program.add(currPurp);
+		basePurp.sendToFront();
 		for (int i = 0; i < callStack; i++) {
 			program.add(stackBricks[i]);
 		}

@@ -55,7 +55,7 @@ public final class CollisionChecker {
 		if (next != null && !(next.payloadRetrieved())) {
 			if (playerPayloadCollision(player.getImage(),payload.getImage())) {
 				
-			AudioPlayer.getInstance().playSound("sounds", "error.wav");
+			//AudioPlayer.getInstance().playSound("sounds", "error.wav");
 			}
 		}
 	}
