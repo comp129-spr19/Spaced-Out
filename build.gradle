@@ -1,0 +1,21 @@
+apply plugin: 'java'
+ext.junit4Version = '4.12'
+repositories {
+jcenter()
+}
+dependencies {
+testCompile("junit:junit:${junit4Version}")
+testRuntime("junit:junit:${junit4Version}")
+}
+sourceSets {
+test{
+java {
+srcDir 'src/'
+}
+}
+}
+test {
+testLogging {
+showStandardStreams = true
+}
+}
