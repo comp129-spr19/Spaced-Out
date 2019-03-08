@@ -1,4 +1,5 @@
 language: java
+before_install: ant init-acm
 jdk:
 - oraclejdk8
 before_install:
