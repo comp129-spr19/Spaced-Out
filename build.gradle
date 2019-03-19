@@ -1,21 +1,41 @@
-apply plugin: 'java'
-ext.junit4Version = '4.12'
-repositories {
-jcenter()
+import org.gradle.plugins.ide.eclipse.model.AccessRule
+
+plugins {
+	id 'application'
+	id 'eclipse'
 }
-dependencies {
-testCompile("junit:junit:${junit4Version}")
-testRuntime("junit:junit:${junit4Version}")
+
+application {
+	mainClassName = 'starter.MainApplication'
 }
+
+eclipse {
+	classpath {
+        file {
+            whenMerged {
+                def jre = entries.find { it.path.contains 'org.eclipse.jdt.launching.JRE_CONTAINER' }
+                jre.accessRules.add(new AccessRule('0', 'javafx/**'))
+            }
+        }
+    }
+}
+
 sourceSets {
-test{
-java {
-srcDir 'src/'
+	main {
+		java {
+			srcDirs = ['src']
+		}
+		resources {
+			srcDirs = ['media']
+		}
+	}
 }
+
+repositories {
+	jcenter()
 }
-}
-test {
-testLogging {
-showStandardStreams = true
-}
+
+dependencies {
+	implementation files('libs/acm.jar')
+	testImplementation 'junit:junit:4.12'
 }
